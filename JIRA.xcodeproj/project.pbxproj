@@ -38,6 +38,7 @@
 		27B1DD901611EEA600E80FFC /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ViewControllers/LoginViewController.h; sourceTree = "<group>"; };
 		27B1DD911611EEA600E80FFC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ViewControllers/LoginViewController.m; sourceTree = "<group>"; };
 		27B1DD921611EEA600E80FFC /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = ViewControllers/LoginViewController.xib; sourceTree = "<group>"; };
+		27B1DD9E1611F79100E80FFC /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = Model/config.h; sourceTree = "<group>"; };
 		48ADECB777884CB49C71209A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		DD42C33BB180411886935D34 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -89,6 +90,7 @@
 		27B1DD6F1611ED9100E80FFC /* JIRA */ = {
 			isa = PBXGroup;
 			children = (
+				27B1DD9D1611F77400E80FFC /* Model */,
 				27B1DD8F1611EE6F00E80FFC /* ViewControllers */,
 				27B1DD781611ED9100E80FFC /* AppDelegate.h */,
 				27B1DD791611ED9100E80FFC /* AppDelegate.m */,
@@ -114,11 +116,27 @@
 		27B1DD8F1611EE6F00E80FFC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				27B1DD9C1611F76700E80FFC /* Login */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		27B1DD9C1611F76700E80FFC /* Login */ = {
+			isa = PBXGroup;
+			children = (
 				27B1DD901611EEA600E80FFC /* LoginViewController.h */,
 				27B1DD911611EEA600E80FFC /* LoginViewController.m */,
 				27B1DD921611EEA600E80FFC /* LoginViewController.xib */,
 			);
-			name = ViewControllers;
+			name = Login;
+			sourceTree = "<group>";
+		};
+		27B1DD9D1611F77400E80FFC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				27B1DD9E1611F79100E80FFC /* config.h */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
