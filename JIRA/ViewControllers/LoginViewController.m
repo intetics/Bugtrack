@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-#import "AFHTTPClient.h"
+#import "AFNetworking.h"
 #import "../Model/config.h"
 
 @interface LoginViewController ()
@@ -55,6 +55,9 @@
     
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:_BASE_URL_]];
     [httpClient setAuthorizationHeaderWithUsername:username password:userpassword];
+    [httpClient setParameterEncoding:AFJSONParameterEncoding];
+    [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
+
     [httpClient getPath:_REQUEST_URL_ parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type:"]
                 success:^(AFHTTPRequestOperation *operation, id JSON) {
                     NSLog(@"Success! \n %@", [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding]);
