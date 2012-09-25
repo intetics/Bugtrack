@@ -61,11 +61,9 @@
     [httpClient getPath:REQUEST_URL parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type:"]
                 success:^(AFHTTPRequestOperation *operation, id JSON) {
                     NSLog(@"Success! \n %@", [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding]);
+                    [self dismissModalViewControllerAnimated:YES];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error){
                     NSLog(@"Failed: %@", error);
                 }];
-    
-    
-    
 }
 @end
