@@ -48,6 +48,10 @@
     [super viewDidUnload];
 }
 
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return YES;
+}
+
 - (IBAction)performLogin:(id)sender {
     
     NSString *username = self.userName.text;
