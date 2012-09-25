@@ -53,12 +53,12 @@
     NSString *username = self.userName.text;
     NSString *userpassword = self.userPassword.text;
     
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:_BASE_URL_]];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:BASE_URL]];
     [httpClient setAuthorizationHeaderWithUsername:username password:userpassword];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
 
-    [httpClient getPath:_REQUEST_URL_ parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type:"]
+    [httpClient getPath:REQUEST_URL parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type:"]
                 success:^(AFHTTPRequestOperation *operation, id JSON) {
                     NSLog(@"Success! \n %@", [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding]);
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error){

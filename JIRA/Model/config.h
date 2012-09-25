@@ -9,8 +9,8 @@
 #ifndef JIRA_config_h
 #define JIRA_config_h
 
-#define _BASE_URL_ @""
-#define _REQUEST_URL_ @""
+#define BASE_URL @""
+#define REQUEST_URL @""
 
 
 #endif
