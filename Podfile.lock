@@ -1,0 +1,17 @@
+
+COCOAPODS: 0.14.0
+
+PODS: 
+- AFNetworking (1.0)
+- JASidePanels (0.0.1)
+- JSONKit (1.5pre)
+
+SPEC CHECKSUMS: 
+  JASidePanels: c52496dda20024d5d8f7918e81f61c9dc78a6603
+  JSONKit: a01a22c75f27eae76b4badd55a91c20fe6e86477
+  AFNetworking: e9e0911a6afd846691672a4d832fb531e8bae72f
+
+DEPENDENCIES: 
+- AFNetworking
+- JASidePanels
+- JSONKit
