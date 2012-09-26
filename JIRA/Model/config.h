@@ -9,7 +9,7 @@
 #ifndef JIRA_config_h
 #define JIRA_config_h
 
-#define BASE_URL @""
+#define BASE_URL @"https://jira.atlassian.com/rest/api/latest/"
 #define REQUEST_URL @""
 
 
