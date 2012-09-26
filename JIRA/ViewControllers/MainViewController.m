@@ -40,7 +40,7 @@
     
     LoginViewController* loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-
+    loginViewController.delegate = self;
     [self.navigationController presentModalViewController:loginViewController animated:YES];
 }
 
@@ -48,6 +48,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) modalViewControllerWillDismiss {
+    NSLog(@"Dismissed");
 }
 
 #pragma mark - Table View
