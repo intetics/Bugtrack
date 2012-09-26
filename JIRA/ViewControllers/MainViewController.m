@@ -39,11 +39,9 @@
     [super viewDidAppear:animated];
     
     LoginViewController* loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    
-    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-    navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
-    
-    [self.navigationController presentModalViewController:navigationController animated:YES];
+    loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+
+    [self.navigationController presentModalViewController:loginViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
