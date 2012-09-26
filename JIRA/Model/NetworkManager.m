@@ -44,20 +44,20 @@
 
 //TODO: Make it more generic. Right now it uses assumption that we can pass auth. header in request.
 //FIXME:
-- (NSArray *) getAllIssuesForCurrentUser {
+- (void) getAllIssuesForCurrentUserWithCompletitionBlocksForSuccess:(void (^)(id response))success
+                                                         andFailure:(void (^)(NSError* error))failure {
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userName = [userDefaults objectForKey:@"username"];
-    NSString *password = [userDefaults objectForKey:@"password"];
-    
-    [self.httpClient setAuthorizationHeaderWithUsername:userName password:password];
     
     NSString *path = @"search?jql=assignee%3D";
     NSMutableString *fullpath = [path mutableCopy];
     [fullpath appendString:@"\%22"];
     [fullpath appendString:userName];
-    [fullpath appendString:@"\%22"];
+    [fullpath appendString:@"%22"];
+    [fullpath appendString:@"\%20and\%20status\%20in\%20(\%22open\%22,\%22in%20progress\%22,\%22reopened\%22)"];
     
-    __block NSArray *response;
+    __block NSDictionary *response;
     [self.httpClient getPath:fullpath parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"]
                      success:^(AFHTTPRequestOperation *operation, id responseObject){
                          
@@ -65,11 +65,15 @@
                                                  initWithParseOptions:JKParseOptionNone];
                          response = [decoder objectWithData:responseObject];
                          NSLog(@"We get:%@", response);
+                         if (success) {
+                             success([response objectForKey:@"issues"]);
+                         }
                      }failure:^(AFHTTPRequestOperation *operation, NSError *error){
                          NSLog(@"Error: %@", error);
-                         response = nil;
+                         if (failure) {
+                             failure(error);
+                         }
                      }];
-    return response;
 }
 
 @end
