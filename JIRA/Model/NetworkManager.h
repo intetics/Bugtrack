@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NetworkManager : NSObject
-
++ (id)sharedClient;
 - (void) loginWithUsername:(NSString*)username andPassword:(NSString*) password success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 - (void) getAllIssuesForCurrentUser;
 @end
