@@ -64,7 +64,7 @@
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
 
-    [httpClient getPath:REQUEST_URL parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type:"]
+    [httpClient getPath:@"serverInfo" parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type:"]
                 success:^(AFHTTPRequestOperation *operation, id JSON) {
                     NSLog(@"Success! \n %@", [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding]);
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
