@@ -37,4 +37,31 @@
 
 #pragma mark - Network
 
+//TODO: Implement this method.
+- (void) loginWithUsername:(NSString*)username andPassword:(NSString*) password success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+}
+
+//TODO: Make it more generic. Right now it uses assumption that we can pass auth. header in request.
+//FIXME:
+- (void) getAllIssuesForCurrentUser {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *userName = [userDefaults objectForKey:@"username"];
+    NSString *password = [userDefaults objectForKey:@"password"];
+    
+    [self.httpClient setAuthorizationHeaderWithUsername:userName password:password];
+    [self.httpClient setParameterEncoding:AFJSONParameterEncoding];
+    [self.httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    
+    NSMutableString *path = (NSMutableString *)@"search?jql=assignee%3D";
+    [path appendString:userName];
+    
+    [self.httpClient getPath:path parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type:"]
+                     success:^(AFHTTPRequestOperation *operation, id responseObject){
+                         NSDictionary *response = (NSDictionary *)responseObject;
+                         NSLog(@"We get:%@", response);
+                     }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                         
+                     }];
+}
+
 @end
