@@ -70,6 +70,7 @@
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                     [userDefaults setObject:username forKey:@"username"];
                     [userDefaults setObject:password forKey:@"passworf"];
+                    [self.delegate modalViewControllerWillDismiss];
                     [self dismissModalViewControllerAnimated:YES];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error){
                     NSLog(@"Failed: %@", error);
