@@ -76,4 +76,31 @@
                      }];
 }
 
+- (NSDictionary *) getDetailedIssueInfo:(NSString *)issueURL {
+    __block NSDictionary *detailedInfo;
+    
+    [self.httpClient getPath:[self cleanStringURL:issueURL] parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"]
+                     success:^(AFHTTPRequestOperation *operation, id response) {
+                         JSONDecoder* decoder = [[JSONDecoder alloc]
+                                                 initWithParseOptions:JKParseOptionNone];
+                         detailedInfo = [decoder objectWithData:response];
+                         NSLog(@"Detailed info:%@", detailedInfo);
+                     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                         NSLog(@"Oh god:%@", error);
+                     }];
+    
+    return detailedInfo;
+}
+
+#pragma mark - Miscellaneous
+
+//Removes BASE_URL part from url. length++ because we don't need "/" either 
+- (NSString *) cleanStringURL:(NSString *)stringURL {
+    int length = [BASE_URL length];
+//    length++;
+    NSString *rightURL = [stringURL substringFromIndex:length];
+    return rightURL;
+}
+
 @end

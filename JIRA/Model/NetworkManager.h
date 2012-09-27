@@ -12,4 +12,5 @@
 + (id)sharedClient;
 - (void) loginWithUsername:(NSString*)username andPassword:(NSString*) password success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 - (void) getAllIssuesForCurrentUserWithCompletitionBlocksForSuccess:(void (^)(id response))success andFailure:(void (^)(NSError* error))failure;
+- (NSDictionary *) getDetailedIssueInfo:(NSString *)issueURL;
 @end
