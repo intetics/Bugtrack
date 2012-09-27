@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "AFNetworking.h"
 #import "../Model/config.h"
+#import "NetworkManager.h"
 
 @interface LoginViewController ()
 
@@ -17,6 +18,7 @@
 @implementation LoginViewController
 @synthesize userName;
 @synthesize userPassword;
+@synthesize baseURL;
 @synthesize loginButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -58,22 +60,20 @@
     
     NSString *username = self.userName.text;
     NSString *password = self.userPassword.text;
+    NSString *baseurl = self.baseURL.text;
     
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:BASE_URL]];
-    [httpClient setAuthorizationHeaderWithUsername:username password:password];
-    [httpClient setParameterEncoding:AFJSONParameterEncoding];
-    [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
-
-    [httpClient getPath:@"serverInfo" parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type:"]
-                success:^(AFHTTPRequestOperation *operation, id JSON) {
-                    NSLog(@"Success! \n %@", [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding]);
-                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                    [userDefaults setObject:username forKey:@"username"];
-                    [userDefaults setObject:password forKey:@"passworf"];
-                    [self.delegate modalViewControllerWillDismiss];
-                    [self dismissModalViewControllerAnimated:YES];
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error){
-                    NSLog(@"Failed: %@", error);
-                }];
+    NetworkManager *networkManager = [NetworkManager sharedClient];
+    [networkManager setBaseURL:baseurl];
+    
+    [networkManager loginWithUsername:username
+                          andPassword:password
+                              success:^(id response){
+                                  NSLog(@"Success! \n %@", [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+                                  [self.delegate modalViewControllerWillDismiss];
+                                  [self dismissModalViewControllerAnimated:YES];
+                              }
+                              failure:^(NSError* error){
+                                  NSLog(@"Failed: %@", error);
+                              }];
 }
 @end

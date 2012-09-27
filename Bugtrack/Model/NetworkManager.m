@@ -13,6 +13,7 @@
 
 @interface NetworkManager ()
 @property (strong, nonatomic) AFHTTPClient * httpClient;
+@property (strong, nonatomic) NSString *baseURL;
 @end
 
 @implementation NetworkManager
@@ -31,15 +32,31 @@
 
 - (AFHTTPClient *) httpClient {
     if (!_httpClient) {
-        _httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:BASE_URL]];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        self.baseURL = [userDefaults objectForKey:@"BASE_URL"];
+        _httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:self.baseURL]];
     }
     return _httpClient;
 }
 
 #pragma mark - Network
 
-//TODO: Implement this method.
+
 - (void) loginWithUsername:(NSString*)username andPassword:(NSString*) password success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    [self.httpClient setAuthorizationHeaderWithUsername:username password:password];
+    [self.httpClient getPath:@"serverInfo"
+                  parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"]
+                     success:^(AFHTTPRequestOperation *operation, id response){
+                         if (success) {
+                             success(response);
+                         }
+                     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                         if (failure) {
+                             failure(error);
+                         }
+                     }];
 }
 
 //TODO: Make it more generic. Right now it uses assumption that we can pass auth. header in request.
@@ -58,7 +75,8 @@
     [fullpath appendString:@"\%20and\%20status\%20in\%20(\%22open\%22,\%22in%20progress\%22,\%22reopened\%22)"];
     
     __block NSDictionary *response;
-    [self.httpClient getPath:fullpath parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"]
+    [self.httpClient getPath:fullpath
+                  parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"]
                      success:^(AFHTTPRequestOperation *operation, id responseObject){
                          
                          JSONDecoder* decoder = [[JSONDecoder alloc]
@@ -79,7 +97,8 @@
 - (NSDictionary *) getDetailedIssueInfo:(NSString *)issueURL {
     __block NSDictionary *detailedInfo;
     
-    [self.httpClient getPath:[self cleanStringURL:issueURL] parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"]
+    [self.httpClient getPath:[self cleanStringURL:issueURL]
+                  parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"]
                      success:^(AFHTTPRequestOperation *operation, id response) {
                          JSONDecoder* decoder = [[JSONDecoder alloc]
                                                  initWithParseOptions:JKParseOptionNone];
@@ -97,7 +116,7 @@
 
 //Removes BASE_URL part from url. length++ because we don't need "/" either 
 - (NSString *) cleanStringURL:(NSString *)stringURL {
-    int length = [BASE_URL length];
+    int length = [self.baseURL length];
 //    length++;
     NSString *rightURL = [stringURL substringFromIndex:length];
     return rightURL;
