@@ -3,18 +3,21 @@ PODS:
 - AFNetworking (1.0)
 - JASidePanels (0.0.1)
 - JSONKit (1.5pre)
+- TestFlightSDK (1.1)
 - UITableView-NXEmptyView (0.1.0)
 
 DEPENDENCIES: 
 - AFNetworking
 - JASidePanels
 - JSONKit
+- TestFlightSDK
 - UITableView-NXEmptyView
 
 COCOAPODS: 0.14.0
 
 SPEC CHECKSUMS: 
-  UITableView-NXEmptyView: 4143ed16795deaa656a8f0b71e1f218da6fc613b
-  JSONKit: a01a22c75f27eae76b4badd55a91c20fe6e86477
+  TestFlightSDK: a62347405c04307e2953eda4b8cc465ee51a6c90
   AFNetworking: e9e0911a6afd846691672a4d832fb531e8bae72f
   JASidePanels: c52496dda20024d5d8f7918e81f61c9dc78a6603
+  JSONKit: a01a22c75f27eae76b4badd55a91c20fe6e86477
+  UITableView-NXEmptyView: 4143ed16795deaa656a8f0b71e1f218da6fc613b

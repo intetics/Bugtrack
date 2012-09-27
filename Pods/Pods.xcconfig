@@ -1,7 +1,8 @@
-OTHER_LDFLAGS = -ObjC -framework QuartzCore -framework SystemConfiguration -framework UIKit
+LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/TestFlightSDK"
 ALWAYS_SEARCH_USER_PATHS = YES
+OTHER_LDFLAGS = -ObjC -lTestFlight -lz -framework QuartzCore -framework SystemConfiguration -framework UIKit
+PODS_ROOT = ${SRCROOT}/Pods
+PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/AFNetworking" "${PODS_ROOT}/BuildHeaders/JASidePanels" "${PODS_ROOT}/BuildHeaders/JSONKit" "${PODS_ROOT}/BuildHeaders/TestFlightSDK" "${PODS_ROOT}/BuildHeaders/UITableView-NXEmptyView"
 PODS_HEADERS_SEARCH_PATHS = ${PODS_PUBLIC_HEADERS_SEARCH_PATHS}
 HEADER_SEARCH_PATHS = ${PODS_HEADERS_SEARCH_PATHS}
-PODS_ROOT = ${SRCROOT}/Pods
-PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/AFNetworking" "${PODS_ROOT}/BuildHeaders/JASidePanels" "${PODS_ROOT}/BuildHeaders/JSONKit" "${PODS_ROOT}/BuildHeaders/UITableView-NXEmptyView"
-PODS_PUBLIC_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/JASidePanels" "${PODS_ROOT}/Headers/JSONKit" "${PODS_ROOT}/Headers/UITableView-NXEmptyView"
+PODS_PUBLIC_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/JASidePanels" "${PODS_ROOT}/Headers/JSONKit" "${PODS_ROOT}/Headers/TestFlightSDK" "${PODS_ROOT}/Headers/UITableView-NXEmptyView"
