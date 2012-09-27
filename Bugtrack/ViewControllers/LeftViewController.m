@@ -6,10 +6,13 @@
 //  Copyright (c) 2012 Intetics Co. All rights reserved.
 //
 
+#import "UITableView+NXEmptyView.h"
 #import "LeftViewController.h"
 #import "NetworkManager.h"
+
+
 @interface LeftViewController ()
-@property (strong, nonatomic) NSArray *issues;
+@property (strong, nonatomic) NSArray *projects;
 @end
 
 @implementation LeftViewController
@@ -27,13 +30,11 @@
 {
     [super viewDidLoad];
     NetworkManager *networkManager = [NetworkManager sharedClient];
-    [networkManager getAllIssuesForCurrentUserWithCompletitionBlocksForSuccess:^(id response){
-        self.issues = response;
+    [networkManager getProjectsWithCompletitionBlocksForSuccess:^(id response){
+        self.projects = response;
         [self.tableView reloadData];
-    }
-                                                                    andFailure:^(NSError *error){
-                                                                        NSLog(@"%s %d \n%s \n%s \n Error!", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__);
-                                                                    }];
+    } andFailure:^(NSError *error){
+    }];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -49,7 +50,7 @@
 #pragma mark - Table view
 
 - (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.issues count];
+    return [self.projects count];
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -58,7 +59,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
-    NSString *title = [[self.issues objectAtIndex:indexPath.row] objectForKey:@"key"];
+    NSString *title = [[self.projects objectAtIndex:indexPath.row] objectForKey:@"name"];
     cell.textLabel.text = title;
     return cell;
 }

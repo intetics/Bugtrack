@@ -117,6 +117,28 @@
     return detailedInfo;
 }
 
+- (void) getProjectsWithCompletitionBlocksForSuccess:(void (^)(id response))success
+                                          andFailure:(void (^)(NSError* error))failure
+{
+    __block NSArray* projects;
+    [self.httpClient getPath:@"project"
+                  parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"]
+                     success:^(AFHTTPRequestOperation *operation, id response){
+                         NSLog(@"\n %s \n Success!", __PRETTY_FUNCTION__);
+                         JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionNone];
+                         projects = [decoder objectWithData:response];
+                         if (success) {
+                             success(projects);
+                         }
+                     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                         NSLog(@"%s %d \n%s \n%s \n Fail: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
+                         if (failure) {
+                             failure(error);
+                         }
+                     }];
+}
+
 #pragma mark - Miscellaneous
 
 //Removes BASE_URL part from url. length++ because we don't need "/" either 
