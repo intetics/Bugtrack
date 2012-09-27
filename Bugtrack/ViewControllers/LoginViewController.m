@@ -68,12 +68,13 @@
     [networkManager loginWithUsername:username
                           andPassword:password
                               success:^(id response){
-                                  NSLog(@"Success! \n %@", [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+                                  NSLog(@"%s %d %s %s \n Success! \n %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
                                   [self.delegate modalViewControllerWillDismiss];
                                   [self dismissModalViewControllerAnimated:YES];
                               }
                               failure:^(NSError* error){
-                                  NSLog(@"Failed: %@", error);
+                                  NSLog(@"%s %d %s %s \n Failed: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
+                                  
                               }];
 }
 @end

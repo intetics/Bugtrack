@@ -60,7 +60,7 @@
 }
 
 //TODO: Make it more generic. Right now it uses assumption that we can pass auth. header in request.
-//FIXME:
+//FIXME: use standard URL encoder, but not do it by yourself
 - (void) getAllIssuesForCurrentUserWithCompletitionBlocksForSuccess:(void (^)(id response))success
                                                          andFailure:(void (^)(NSError* error))failure {
     
@@ -82,12 +82,12 @@
                          JSONDecoder* decoder = [[JSONDecoder alloc]
                                                  initWithParseOptions:JKParseOptionNone];
                          response = [decoder objectWithData:responseObject];
-                         NSLog(@"We get:%@", response);
+                         NSLog(@"%s %d %s %s \n We get: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, response);
                          if (success) {
                              success([response objectForKey:@"issues"]);
                          }
                      }failure:^(AFHTTPRequestOperation *operation, NSError *error){
-                         NSLog(@"Error: %@", error);
+                         NSLog(@"%s %d %s %s \n Error: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
                          if (failure) {
                              failure(error);
                          }
@@ -103,10 +103,10 @@
                          JSONDecoder* decoder = [[JSONDecoder alloc]
                                                  initWithParseOptions:JKParseOptionNone];
                          detailedInfo = [decoder objectWithData:response];
-                         NSLog(@"Detailed info:%@", detailedInfo);
+                         NSLog(@"%s %d %s %s \n Detailed info: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, detailedInfo);
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error){
-                         NSLog(@"Oh god:%@", error);
+                         NSLog(@"%s %d %s %s \n Oh god: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
                      }];
     
     return detailedInfo;

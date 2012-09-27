@@ -32,7 +32,7 @@
         [self.tableView reloadData];
     }
                                                                     andFailure:^(NSError *error){
-                                                                        NSLog(@"Error");
+                                                                        NSLog(@"%s %d %s %s \n Error!", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__);
                                                                     }];
 }
 
