@@ -77,8 +77,17 @@
     }
     NSString *issueURL = [[self.issues objectAtIndex:indexPath.row] objectForKey:@"self"];
     NetworkManager *sharedNetworkManger = [NetworkManager sharedClient];
-    NSDictionary *issueInfo = [sharedNetworkManger getDetailedIssueInfo:issueURL];
-    cell.textLabel.text = [[[issueInfo objectForKey:@"fields"] objectForKey:@"summary"] objectForKey:@"value"];
+    __block NSDictionary *issueInfo;
+    [sharedNetworkManger getDetailedIssueInfo:issueURL
+                                      success:^(id response){
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              issueInfo = response;
+                                              cell.textLabel.text = [[[issueInfo objectForKey:@"fields"] objectForKey:@"summary"] objectForKey:@"value"];
+                                          });
+                                      }
+                                   andFailure:^(NSError* error){
+                                   }];
+    
     NSString *subTitle = [[self.issues objectAtIndex:indexPath.row] objectForKey:@"key"];
     cell.detailTextLabel.text = subTitle;
     return cell;
