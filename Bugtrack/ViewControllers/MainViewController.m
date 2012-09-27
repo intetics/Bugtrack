@@ -41,7 +41,7 @@
     LoginViewController* loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     loginViewController.delegate = self;
-//    [self.navigationController presentModalViewController:loginViewController animated:YES];
+    [self.navigationController presentModalViewController:loginViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,6 +52,15 @@
 
 - (void) modalViewControllerWillDismiss {
     NSLog(@"Dismissed");
+    NetworkManager *networkManager = [NetworkManager sharedClient];
+    [networkManager getAllIssuesForCurrentUserWithCompletitionBlocksForSuccess:^(id response){
+        self.issues = response;
+        [self.tableView reloadData];
+    }
+                                                                    andFailure:^(NSError *error){
+                                                                        NSLog(@"Error");
+                                                                    }];
+    
 }
 
 #pragma mark - Table View
@@ -64,10 +73,14 @@
     static NSString * reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     }
-    NSString *title = [[self.issues objectAtIndex:indexPath.row] objectForKey:@"key"];
-    cell.textLabel.text = title;
+    NSString *issueURL = [[self.issues objectAtIndex:indexPath.row] objectForKey:@"self"];
+    NetworkManager *sharedNetworkManger = [NetworkManager sharedClient];
+    NSDictionary *issueInfo = [sharedNetworkManger getDetailedIssueInfo:issueURL];
+    cell.textLabel.text = [[[issueInfo objectForKey:@"fields"] objectForKey:@"summary"] objectForKey:@"value"];
+    NSString *subTitle = [[self.issues objectAtIndex:indexPath.row] objectForKey:@"key"];
+    cell.detailTextLabel.text = subTitle;
     return cell;
 }
 
