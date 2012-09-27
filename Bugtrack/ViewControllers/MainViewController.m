@@ -51,14 +51,14 @@
 }
 
 - (void) modalViewControllerWillDismiss {
-    NSLog(@"%s %d %s %s \n Dismissed", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__);
+    NSLog(@"%s %d \n%s \n%s \n Dismissed", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__);
     NetworkManager *networkManager = [NetworkManager sharedClient];
     [networkManager getAllIssuesForCurrentUserWithCompletitionBlocksForSuccess:^(id response){
         self.issues = response;
         [self.tableView reloadData];
     }
                                                                     andFailure:^(NSError *error){
-                                                                        NSLog(@"%s %d %s %s \n Error: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
+                                                                        NSLog(@"%s %d \n%s \n%s \n Error: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
                                                                     }];
     
 }

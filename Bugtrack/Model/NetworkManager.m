@@ -18,6 +18,7 @@
 
 @implementation NetworkManager
 @synthesize httpClient = _httpClient;
+@synthesize baseURL = _baseURL;
 
 #pragma mark - Init
 
@@ -30,10 +31,13 @@
     return __sharedClient;
 }
 
+- (void) setBaseURL:(NSString *)baseURL{
+    _baseURL = baseURL;
+}
+
 - (AFHTTPClient *) httpClient {
     if (!_httpClient) {
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        self.baseURL = [userDefaults objectForKey:@"BASE_URL"];
+        NSLog(@"URL: %@", self.baseURL);
         _httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:self.baseURL]];
     }
     return _httpClient;
@@ -54,6 +58,7 @@
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error){
                          if (failure) {
+                             NSLog(@"%s %d %s %s \n\n Operation: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, operation);
                              failure(error);
                          }
                      }];
@@ -65,7 +70,7 @@
                                                          andFailure:(void (^)(NSError* error))failure {
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *userName = [userDefaults objectForKey:@"username"];
+    NSString *userName = [userDefaults stringForKey:@"username"];
     
     NSString *path = @"search?jql=assignee%3D";
     NSMutableString *fullpath = [path mutableCopy];
@@ -82,12 +87,12 @@
                          JSONDecoder* decoder = [[JSONDecoder alloc]
                                                  initWithParseOptions:JKParseOptionNone];
                          response = [decoder objectWithData:responseObject];
-                         NSLog(@"%s %d %s %s \n We get: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, response);
+                         NSLog(@"%s %d \n%s \n%s \n We get: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, response);
                          if (success) {
                              success([response objectForKey:@"issues"]);
                          }
                      }failure:^(AFHTTPRequestOperation *operation, NSError *error){
-                         NSLog(@"%s %d %s %s \n Error: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
+                         NSLog(@"%s %d \n%s \n%s \n Error: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
                          if (failure) {
                              failure(error);
                          }
@@ -103,10 +108,10 @@
                          JSONDecoder* decoder = [[JSONDecoder alloc]
                                                  initWithParseOptions:JKParseOptionNone];
                          detailedInfo = [decoder objectWithData:response];
-                         NSLog(@"%s %d %s %s \n Detailed info: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, detailedInfo);
+                         NSLog(@"%s %d \n%s \n%s \n Detailed info: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, detailedInfo);
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error){
-                         NSLog(@"%s %d %s %s \n Oh god: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
+                         NSLog(@"%s %d \n%s \n%s \n Oh god: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
                      }];
     
     return detailedInfo;
