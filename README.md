@@ -1,4 +1,4 @@
-JIRA to iOS
+Bugtrack
 ===========
 
 Concept of iOS app for JIRA
