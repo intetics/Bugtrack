@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'JIRA' target in the 'JIRA' project
+// Prefix header for all source files of the 'Bugtrack' target in the 'Bugtrack' project
 //
 
 #import <Availability.h>

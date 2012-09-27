@@ -29,28 +29,28 @@
 /* Begin PBXFileReference section */
 		271D354A16130374001C35E7 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkManager.h; path = Model/NetworkManager.h; sourceTree = "<group>"; };
 		271D354B16130374001C35E7 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkManager.m; path = Model/NetworkManager.m; sourceTree = "<group>"; };
-		274A586E16121056007D9C09 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = ViewControllers/MainViewController.h; sourceTree = "<group>"; };
-		274A586F16121056007D9C09 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = ViewControllers/MainViewController.m; sourceTree = "<group>"; };
-		274A587016121056007D9C09 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainViewController.xib; path = ViewControllers/MainViewController.xib; sourceTree = "<group>"; };
-		274A587C16121331007D9C09 /* LeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftViewController.h; path = ViewControllers/LeftViewController.h; sourceTree = "<group>"; };
-		274A587D16121331007D9C09 /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftViewController.m; path = ViewControllers/LeftViewController.m; sourceTree = "<group>"; };
-		274A587E16121331007D9C09 /* LeftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftViewController.xib; path = ViewControllers/LeftViewController.xib; sourceTree = "<group>"; };
-		27B1DD651611ED9100E80FFC /* JIRA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JIRA.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		274A586E16121056007D9C09 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = ../Bugtrack/ViewControllers/MainViewController.h; sourceTree = "<group>"; };
+		274A586F16121056007D9C09 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = ../Bugtrack/ViewControllers/MainViewController.m; sourceTree = "<group>"; };
+		274A587016121056007D9C09 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainViewController.xib; path = ../Bugtrack/ViewControllers/MainViewController.xib; sourceTree = "<group>"; };
+		274A587C16121331007D9C09 /* LeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftViewController.h; path = ../Bugtrack/ViewControllers/LeftViewController.h; sourceTree = "<group>"; };
+		274A587D16121331007D9C09 /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftViewController.m; path = ../Bugtrack/ViewControllers/LeftViewController.m; sourceTree = "<group>"; };
+		274A587E16121331007D9C09 /* LeftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftViewController.xib; path = ../Bugtrack/ViewControllers/LeftViewController.xib; sourceTree = "<group>"; };
+		27B1DD651611ED9100E80FFC /* Bugtrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bugtrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B1DD691611ED9100E80FFC /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		27B1DD6B1611ED9100E80FFC /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		27B1DD6D1611ED9100E80FFC /* CoreGraphics.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		27B1DD711611ED9100E80FFC /* JIRA-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JIRA-Info.plist"; sourceTree = "<group>"; };
+		27B1DD711611ED9100E80FFC /* Bugtrack-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Bugtrack-Info.plist"; path = "../Bugtrack/Bugtrack-Info.plist"; sourceTree = "<group>"; };
 		27B1DD731611ED9100E80FFC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		27B1DD751611ED9100E80FFC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		27B1DD771611ED9100E80FFC /* JIRA-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JIRA-Prefix.pch"; sourceTree = "<group>"; };
-		27B1DD781611ED9100E80FFC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		27B1DD791611ED9100E80FFC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		27B1DD7B1611ED9100E80FFC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		27B1DD7D1611ED9100E80FFC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		27B1DD7F1611ED9100E80FFC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		27B1DD901611EEA600E80FFC /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ViewControllers/LoginViewController.h; sourceTree = "<group>"; };
-		27B1DD911611EEA600E80FFC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ViewControllers/LoginViewController.m; sourceTree = "<group>"; };
-		27B1DD921611EEA600E80FFC /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = ViewControllers/LoginViewController.xib; sourceTree = "<group>"; };
+		27B1DD751611ED9100E80FFC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../Bugtrack/main.m; sourceTree = "<group>"; };
+		27B1DD771611ED9100E80FFC /* Bugtrack-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bugtrack-Prefix.pch"; path = "../Bugtrack/Bugtrack-Prefix.pch"; sourceTree = "<group>"; };
+		27B1DD781611ED9100E80FFC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../Bugtrack/AppDelegate.h; sourceTree = "<group>"; };
+		27B1DD791611ED9100E80FFC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../Bugtrack/AppDelegate.m; sourceTree = "<group>"; };
+		27B1DD7B1611ED9100E80FFC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Bugtrack/Default.png; sourceTree = "<group>"; };
+		27B1DD7D1611ED9100E80FFC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Bugtrack/Default@2x.png"; sourceTree = "<group>"; };
+		27B1DD7F1611ED9100E80FFC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Bugtrack/Default-568h@2x.png"; sourceTree = "<group>"; };
+		27B1DD901611EEA600E80FFC /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ../Bugtrack/ViewControllers/LoginViewController.h; sourceTree = "<group>"; };
+		27B1DD911611EEA600E80FFC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ../Bugtrack/ViewControllers/LoginViewController.m; sourceTree = "<group>"; };
+		27B1DD921611EEA600E80FFC /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = ../Bugtrack/ViewControllers/LoginViewController.xib; sourceTree = "<group>"; };
 		27B1DD9E1611F79100E80FFC /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = Model/config.h; sourceTree = "<group>"; };
 		48ADECB777884CB49C71209A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		DD42C33BB180411886935D34 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,7 +84,7 @@
 		27B1DD5A1611ED9100E80FFC = {
 			isa = PBXGroup;
 			children = (
-				27B1DD6F1611ED9100E80FFC /* JIRA */,
+				27B1DD6F1611ED9100E80FFC /* Bugtrack */,
 				27B1DD681611ED9100E80FFC /* Frameworks */,
 				27B1DD661611ED9100E80FFC /* Products */,
 				48ADECB777884CB49C71209A /* Pods.xcconfig */,
@@ -94,7 +94,7 @@
 		27B1DD661611ED9100E80FFC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				27B1DD651611ED9100E80FFC /* JIRA.app */,
+				27B1DD651611ED9100E80FFC /* Bugtrack.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,7 +110,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		27B1DD6F1611ED9100E80FFC /* JIRA */ = {
+		27B1DD6F1611ED9100E80FFC /* Bugtrack */ = {
 			isa = PBXGroup;
 			children = (
 				27B1DD9D1611F77400E80FFC /* Model */,
@@ -119,16 +119,16 @@
 				27B1DD791611ED9100E80FFC /* AppDelegate.m */,
 				27B1DD701611ED9100E80FFC /* Supporting Files */,
 			);
-			path = JIRA;
+			path = Bugtrack;
 			sourceTree = "<group>";
 		};
 		27B1DD701611ED9100E80FFC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				27B1DD711611ED9100E80FFC /* JIRA-Info.plist */,
+				27B1DD711611ED9100E80FFC /* Bugtrack-Info.plist */,
 				27B1DD721611ED9100E80FFC /* InfoPlist.strings */,
 				27B1DD751611ED9100E80FFC /* main.m */,
-				27B1DD771611ED9100E80FFC /* JIRA-Prefix.pch */,
+				27B1DD771611ED9100E80FFC /* Bugtrack-Prefix.pch */,
 				27B1DD7B1611ED9100E80FFC /* Default.png */,
 				27B1DD7D1611ED9100E80FFC /* Default@2x.png */,
 				27B1DD7F1611ED9100E80FFC /* Default-568h@2x.png */,
@@ -171,9 +171,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		27B1DD641611ED9100E80FFC /* JIRA */ = {
+		27B1DD641611ED9100E80FFC /* Bugtrack */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 27B1DD831611ED9100E80FFC /* Build configuration list for PBXNativeTarget "JIRA" */;
+			buildConfigurationList = 27B1DD831611ED9100E80FFC /* Build configuration list for PBXNativeTarget "Bugtrack" */;
 			buildPhases = (
 				27B1DD611611ED9100E80FFC /* Sources */,
 				27B1DD621611ED9100E80FFC /* Frameworks */,
@@ -184,9 +184,9 @@
 			);
 			dependencies = (
 			);
-			name = JIRA;
-			productName = JIRA;
-			productReference = 27B1DD651611ED9100E80FFC /* JIRA.app */;
+			name = Bugtrack;
+			productName = Bugtrack;
+			productReference = 27B1DD651611ED9100E80FFC /* Bugtrack.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -198,7 +198,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Intetics Co.";
 			};
-			buildConfigurationList = 27B1DD5F1611ED9100E80FFC /* Build configuration list for PBXProject "JIRA" */;
+			buildConfigurationList = 27B1DD5F1611ED9100E80FFC /* Build configuration list for PBXProject "Bugtrack" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -210,7 +210,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				27B1DD641611ED9100E80FFC /* JIRA */,
+				27B1DD641611ED9100E80FFC /* Bugtrack */,
 			);
 		};
 /* End PBXProject section */
@@ -272,6 +272,7 @@
 				27B1DD731611ED9100E80FFC /* en */,
 			);
 			name = InfoPlist.strings;
+			path = ../Bugtrack;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -333,10 +334,10 @@
 			baseConfigurationReference = 48ADECB777884CB49C71209A /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JIRA/JIRA-Prefix.pch";
-				INFOPLIST_FILE = "JIRA/JIRA-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Bugtrack/Bugtrack-Prefix.pch";
+				INFOPLIST_FILE = "Bugtrack/Bugtrack-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = Bugtrack;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -346,10 +347,10 @@
 			baseConfigurationReference = 48ADECB777884CB49C71209A /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JIRA/JIRA-Prefix.pch";
-				INFOPLIST_FILE = "JIRA/JIRA-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Bugtrack/Bugtrack-Prefix.pch";
+				INFOPLIST_FILE = "Bugtrack/Bugtrack-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = Bugtrack;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -357,7 +358,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		27B1DD5F1611ED9100E80FFC /* Build configuration list for PBXProject "JIRA" */ = {
+		27B1DD5F1611ED9100E80FFC /* Build configuration list for PBXProject "Bugtrack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				27B1DD811611ED9100E80FFC /* Debug */,
@@ -366,7 +367,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		27B1DD831611ED9100E80FFC /* Build configuration list for PBXNativeTarget "JIRA" */ = {
+		27B1DD831611ED9100E80FFC /* Build configuration list for PBXNativeTarget "Bugtrack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				27B1DD841611ED9100E80FFC /* Debug */,

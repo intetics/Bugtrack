@@ -1,6 +1,6 @@
 //
 //  MainViewController.m
-//  JIRA
+//  Bugtrack
 //
 //  Created by Ilia Akgaev on 9/25/12.
 //  Copyright (c) 2012 Intetics Co. All rights reserved.
@@ -41,7 +41,7 @@
     LoginViewController* loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     loginViewController.delegate = self;
-    [self.navigationController presentModalViewController:loginViewController animated:YES];
+//    [self.navigationController presentModalViewController:loginViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
