@@ -99,7 +99,7 @@
                      }];
 }
 
-- (NSDictionary *) getDetailedIssueInfo:(NSString *)issueURL {
+- (void) getDetailedIssueInfo:(NSString *)issueURL success:(void (^)(id response))success andFailure:(void (^)(NSError* error))failure{
     __block NSDictionary *detailedInfo;
     
     [self.httpClient getPath:[self cleanStringURL:issueURL]
@@ -109,12 +109,16 @@
                                                  initWithParseOptions:JKParseOptionNone];
                          detailedInfo = [decoder objectWithData:response];
                          NSLog(@"%s %d \n%s \n%s \n Detailed info: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, detailedInfo);
+                         if (success) {
+                             success(detailedInfo);
+                         }
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error){
                          NSLog(@"%s %d \n%s \n%s \n Oh god: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
+                         if (failure) {
+                             failure(error);
+                         }
                      }];
-    
-    return detailedInfo;
 }
 
 - (void) getProjectsWithCompletitionBlocksForSuccess:(void (^)(id response))success

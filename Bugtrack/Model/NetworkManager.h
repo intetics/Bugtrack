@@ -13,7 +13,7 @@
 - (void) setBaseURL:(NSString*)baseURL;
 - (void) loginWithUsername:(NSString*)username andPassword:(NSString*) password success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 - (void) getAllIssuesForCurrentUserWithCompletitionBlocksForSuccess:(void (^)(id response))success andFailure:(void (^)(NSError* error))failure;
-- (NSDictionary *) getDetailedIssueInfo:(NSString *)issueURL;
+- (void) getDetailedIssueInfo:(NSString *)issueURL success:(void (^)(id response))success andFailure:(void (^)(NSError* error))failure;
 - (void) getProjectsWithCompletitionBlocksForSuccess:(void (^)(id response))success andFailure:(void (^)(NSError* error))failure;
 
 - (NSString *) cleanStringURL:(NSString *)stringURL;
