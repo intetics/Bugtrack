@@ -68,6 +68,7 @@
     DataManager *dataManager = [DataManager sharedManager];
     [dataManager setUserName:username];
     [dataManager setBaseURL:baseurl];
+    [dataManager setPassword:password];
     
     NetworkManager *networkManager = [NetworkManager sharedClient];
     

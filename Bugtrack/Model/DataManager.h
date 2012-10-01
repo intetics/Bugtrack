@@ -15,8 +15,10 @@
 - (NSDictionary *)getSessionInfo;
 - (NSString*) getUserName;
 - (NSString*) getBaseURL;
+- (NSString*) getPassword;
 - (void) setSessionInfo:(NSDictionary*)sessionInfo;
 - (void) setUserName:(NSString*)username;
 - (void) setBaseURL:(NSString*)baseURL;
+- (void) setPassword:(NSString*)password;
 - (void) save;
 @end

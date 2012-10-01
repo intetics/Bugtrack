@@ -15,6 +15,7 @@
         self.session = [aDecoder decodeObjectForKey:@"session"];
         self.username = [aDecoder decodeObjectForKey:@"username"];
         self.baseurl = [aDecoder decodeObjectForKey:@"baseurl"];
+        self.password = [aDecoder decodeObjectForKey:@"password"];
     }
     return self;
 }
@@ -23,6 +24,7 @@
     [aCoder encodeObject:self.session forKey:@"session"];
     [aCoder encodeObject:self.username forKey:@"username"];
     [aCoder encodeObject:self.baseurl forKey:@"baseurl"];
+    [aCoder encodeObject:self.password forKey:@"password"];
     
 }
 @end

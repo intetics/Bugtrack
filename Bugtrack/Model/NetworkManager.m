@@ -43,6 +43,7 @@
         self.session = [dataManager getSessionInfo];
         _httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:[dataManager getBaseURL]]];
         _httpClient.parameterEncoding = AFJSONParameterEncoding;
+        [_httpClient setAuthorizationHeaderWithUsername:[dataManager getUserName] password:[dataManager getPassword]];
     }
     return _httpClient;
 }
@@ -109,7 +110,7 @@
     
     __block NSDictionary *response;
     [self.httpClient getPath:fullpath
-                  parameters:self.session
+                  parameters:nil
                      success:^(AFHTTPRequestOperation *operation, id responseObject){
                          
                          JSONDecoder* decoder = [[JSONDecoder alloc]
@@ -131,7 +132,7 @@
     __block NSDictionary *detailedInfo;
     
     [self.httpClient getPath:[self cleanStringURL:issueURL]
-                  parameters:self.session
+                  parameters:nil
                      success:^(AFHTTPRequestOperation *operation, id response) {
                          JSONDecoder* decoder = [[JSONDecoder alloc]
                                                  initWithParseOptions:JKParseOptionNone];
@@ -154,7 +155,7 @@
 {
     __block NSArray* projects;
     [self.httpClient getPath:@"project"
-                  parameters:self.session
+                  parameters:nil
                      success:^(AFHTTPRequestOperation *operation, id response){
                          NSLog(@"\n %s \n Success!", __PRETTY_FUNCTION__);
                          JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionNone];

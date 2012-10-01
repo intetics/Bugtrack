@@ -50,6 +50,10 @@
     return self.loginData.baseurl;
 }
 
+- (NSString*) getPassword {
+    return self.loginData.password;
+}
+
 - (void) setSessionInfo:(NSDictionary *)sessionInfo {
     self.loginData.session = sessionInfo;
 }
@@ -62,6 +66,9 @@
     self.loginData.baseurl = baseURL;
 }
 
+- (void) setPassword:(NSString *)password {
+    self.loginData.password = password;
+}
 - (void) save {
     NSData *encodedData = [NSKeyedArchiver archivedDataWithRootObject:self.loginData];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
