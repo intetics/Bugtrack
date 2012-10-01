@@ -75,7 +75,6 @@
     [networkManager loginWithUsername:username
                           andPassword:password
                               success:^(id response){
-                                  NSLog(@"%s %d \n%s \n%s \n Success! \n %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
                                   [self.delegate modalViewControllerWillDismiss];
                                   [self dismissModalViewControllerAnimated:YES];
                               }
