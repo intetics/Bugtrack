@@ -48,22 +48,25 @@
 
 - (void) loginWithUsername:(NSString*)username andPassword:(NSString*) password success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
     
-    [self.httpClient setAuthorizationHeaderWithUsername:username password:password];
-    [self.httpClient getPath:@"serverInfo"
-                  parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"]
-                     success:^(AFHTTPRequestOperation *operation, id response){
-                         if (success) {
-                             success(response);
-                         }
-                     }
-                     failure:^(AFHTTPRequestOperation *operation, NSError *error){
-                         if (failure) {
-                             NSLog(@"%s %d %s %s \n\n Operation: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, operation);
-                             failure(error);
-                         }
-                     }];
+    NSDictionary *parameters = [[NSDictionary alloc] initWithObjectsAndKeys:username, @"username", password, @"password", nil];
+    self.httpClient.parameterEncoding = AFJSONParameterEncoding;
+    [self.httpClient postPath:@"auth/latest/session" parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id response){
+                          JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionNone];
+                          NSDictionary *json = [decoder objectWithData:response];
+                          NSLog(@"Response: %@", json);
+                          if (success) {
+                              success(json);
+                          }
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                          NSLog(@"%s %d %s %s \n\n Operation: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, operation);
+                          if (failure) {
+                              failure(error);
+                          }
+                      }];
 }
-
+     
 //TODO: Make it more generic. Right now it uses assumption that we can pass auth. header in request.
 //FIXME: use standard URL encoder, but not do it by yourself
 - (void) getAllIssuesForCurrentUserWithCompletitionBlocksForSuccess:(void (^)(id response))success

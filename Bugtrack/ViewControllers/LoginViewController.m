@@ -62,7 +62,7 @@
     NSString *password = self.userPassword.text;
     NSMutableString *baseurl = [@"https://" mutableCopy];
     [baseurl appendString:[self.baseURL.text mutableCopy]];    
-    [baseurl appendString:@"/rest/api/latest/"];    
+    [baseurl appendString:@"/rest/"];    
     
     NetworkManager *networkManager = [NetworkManager sharedClient];
     [networkManager setBaseURL:baseurl];
