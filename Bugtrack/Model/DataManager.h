@@ -12,6 +12,7 @@
 @interface DataManager : NSObject
 
 + (id) sharedManager;
+- (BOOL) isDataAvailable;
 - (NSDictionary *)getSessionInfo;
 - (NSString*) getUserName;
 - (NSString*) getBaseURL;

@@ -10,10 +10,14 @@
 
 @interface DataManager()
 @property (strong, nonatomic) LoginData *loginData;
+
 @end
 
 
 @implementation DataManager
+{
+    NSUserDefaults *userDefaults;
+}
 @synthesize loginData = _loginData;
 
 + (id)sharedManager {
@@ -27,8 +31,8 @@
 
 - (id) init {
     if (self = [super init]) {
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        if ([userDefaults boolForKey:@"Saved"]) {
+        userDefaults = [NSUserDefaults standardUserDefaults];
+        if ([self isDataAvailable]) {
             NSData *encodedData = [userDefaults objectForKey:@"data"];
             self.loginData = [NSKeyedUnarchiver unarchiveObjectWithData:encodedData];
         } else {
@@ -36,6 +40,10 @@
         }
     }
     return self;
+}
+
+- (BOOL) isDataAvailable {
+    return [userDefaults boolForKey:@"Saved"];
 }
 
 - (NSDictionary*) getSessionInfo {
@@ -71,7 +79,6 @@
 }
 - (void) save {
     NSData *encodedData = [NSKeyedArchiver archivedDataWithRootObject:self.loginData];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:encodedData forKey:@"data"];
     [userDefaults setBool:YES forKey:@"Saved"];
     [userDefaults synchronize];
