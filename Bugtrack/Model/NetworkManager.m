@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "config.h"
 #import "JSONKit.h"
+#import "DataManager.h"
 
 @interface NetworkManager ()
 @property (strong, nonatomic) AFHTTPClient * httpClient;
@@ -38,25 +39,47 @@
 
 - (AFHTTPClient *) httpClient {
     if (!_httpClient) {
-        NSLog(@"URL: %@", self.baseURL);
-        _httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:self.baseURL]];
+        DataManager *dataManager = [DataManager sharedManager];
+        self.session = [dataManager getSessionInfo];
+        _httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:[dataManager getBaseURL]]];
+        _httpClient.parameterEncoding = AFJSONParameterEncoding;
     }
     return _httpClient;
 }
 
-#pragma mark - Network
+#pragma mark - Login
 
-
+- (BOOL) isCoockieValidSuccess:(void(^)(id response))success failure:(void(^)(NSError *error))failure {
+    __block BOOL valid = NO;
+    DataManager *dataManager = [DataManager sharedManager];
+    NSDictionary *session = [dataManager getSessionInfo];
+    [self.httpClient getPath:@"auth/latest/session" parameters:session
+                     success:^(AFHTTPRequestOperation *operation, id response){
+                         if (success) {
+                             self.session = session;
+                             success(response);
+                         }
+                     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                         if (failure) {
+                             _httpClient = nil;
+                             failure(failure);
+                         }
+                     }];
+    return valid;
+}
 - (void) loginWithUsername:(NSString*)username andPassword:(NSString*) password success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
     
     NSDictionary *parameters = [[NSDictionary alloc] initWithObjectsAndKeys:username, @"username", password, @"password", nil];
-    self.httpClient.parameterEncoding = AFJSONParameterEncoding;
     [self.httpClient postPath:@"auth/latest/session" parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id response){
                           JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionNone];
                           NSDictionary *json = [decoder objectWithData:response];
                           NSLog(@"Response: %@", json);
                           self.session = [json objectForKey:@"session"];
+                          DataManager *dataManger = [DataManager sharedManager];
+                          [dataManger setSessionInfo:self.session];
+                          [dataManger save];
                           if (success) {
                               success(json);
                           }
@@ -68,19 +91,19 @@
                           }
                       }];
 }
-     
+
+#pragma mark - Get data
 //TODO: Make it more generic. Right now it uses assumption that we can pass auth. header in request.
 //FIXME: use standard URL encoder, but not do it by yourself
 - (void) getAllIssuesForCurrentUserWithSuccess:(void (^)(id response))success
                                     andFailure:(void (^)(NSError* error))failure {
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *userName = [userDefaults stringForKey:@"username"];
+    DataManager* dataManager = [DataManager sharedManager];
     
     NSString *path = @"api/latest/search?jql=assignee%3D";
     NSMutableString *fullpath = [path mutableCopy];
     [fullpath appendString:@"\%22"];
-    [fullpath appendString:userName];
+    [fullpath appendString:[dataManager getUserName]];
     [fullpath appendString:@"%22"];
     [fullpath appendString:@"\%20and\%20status\%20in\%20(\%22open\%22,\%22in%20progress\%22,\%22reopened\%22)"];
     
