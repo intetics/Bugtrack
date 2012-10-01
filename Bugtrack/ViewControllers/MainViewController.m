@@ -10,9 +10,11 @@
 #import "MainViewController.h"
 #import "LoginViewController.h"
 #import "NetworkManager.h"
+#import "DataManager.h"
 
 @interface MainViewController ()
 @property (strong, nonatomic) NSArray *issues;
+- (void) getData;
 @end
 
 @implementation MainViewController
@@ -38,10 +40,18 @@
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    LoginViewController* loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-    loginViewController.delegate = self;
-    [self.navigationController presentModalViewController:loginViewController animated:YES];
+    NetworkManager *networkManager = [NetworkManager sharedClient];
+    [networkManager isCoockieValidSuccess:^(id response){
+        [self getData];
+        
+    }
+                                  failure:^(NSError *error){
+                                      LoginViewController* loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+                                      loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+                                      loginViewController.delegate = self;
+                                      [self.navigationController presentModalViewController:loginViewController animated:YES];
+
+                                  }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,15 +62,18 @@
 
 - (void) modalViewControllerWillDismiss {
     NSLog(@"%s %d \n%s \n%s \n Dismissed", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__);
+    [self getData];
+}
+
+- (void) getData {
     NetworkManager *networkManager = [NetworkManager sharedClient];
-    [networkManager getAllIssuesForCurrentUserWithCompletitionBlocksForSuccess:^(id response){
+    [networkManager getAllIssuesForCurrentUserWithSuccess:^(id response){
         self.issues = response;
         [self.tableView reloadData];
     }
-                                                                    andFailure:^(NSError *error){
-                                                                        NSLog(@"%s %d \n%s \n%s \n Error: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
-                                                                    }];
-    
+                                               andFailure:^(NSError *error){
+                                                   NSLog(@"%s %d \n%s \n%s \n Error: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
+                                               }];
 }
 
 #pragma mark - Table View

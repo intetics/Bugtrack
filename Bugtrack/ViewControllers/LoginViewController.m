@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "../Model/config.h"
 #import "NetworkManager.h"
+#import "DataManager.h"
 
 @interface LoginViewController ()
 
@@ -64,13 +65,11 @@
     [baseurl appendString:[self.baseURL.text mutableCopy]];    
     [baseurl appendString:@"/rest/"];    
     
-    NetworkManager *networkManager = [NetworkManager sharedClient];
-    [networkManager setBaseURL:baseurl];
+    DataManager *dataManager = [DataManager sharedManager];
+    [dataManager setUserName:username];
+    [dataManager setBaseURL:baseurl];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:username forKey:@"username"];
-    [userDefaults synchronize];
-
+    NetworkManager *networkManager = [NetworkManager sharedClient];
     
     [networkManager loginWithUsername:username
                           andPassword:password
