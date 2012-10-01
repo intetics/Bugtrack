@@ -71,8 +71,8 @@
      
 //TODO: Make it more generic. Right now it uses assumption that we can pass auth. header in request.
 //FIXME: use standard URL encoder, but not do it by yourself
-- (void) getAllIssuesForCurrentUserWithCompletitionBlocksForSuccess:(void (^)(id response))success
-                                                         andFailure:(void (^)(NSError* error))failure {
+- (void) getAllIssuesForCurrentUserWithSuccess:(void (^)(id response))success
+                                    andFailure:(void (^)(NSError* error))failure {
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userName = [userDefaults stringForKey:@"username"];
