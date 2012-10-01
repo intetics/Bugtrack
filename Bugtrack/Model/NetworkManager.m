@@ -14,6 +14,7 @@
 @interface NetworkManager ()
 @property (strong, nonatomic) AFHTTPClient * httpClient;
 @property (strong, nonatomic) NSString *baseURL;
+@property (strong, nonatomic) NSDictionary *session;
 @end
 
 @implementation NetworkManager
@@ -55,6 +56,7 @@
                           JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionNone];
                           NSDictionary *json = [decoder objectWithData:response];
                           NSLog(@"Response: %@", json);
+                          self.session = [json objectForKey:@"session"];
                           if (success) {
                               success(json);
                           }
