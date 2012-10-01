@@ -77,7 +77,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userName = [userDefaults stringForKey:@"username"];
     
-    NSString *path = @"search?jql=assignee%3D";
+    NSString *path = @"api/latest/search?jql=assignee%3D";
     NSMutableString *fullpath = [path mutableCopy];
     [fullpath appendString:@"\%22"];
     [fullpath appendString:userName];
@@ -86,7 +86,7 @@
     
     __block NSDictionary *response;
     [self.httpClient getPath:fullpath
-                  parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"]
+                  parameters:self.session
                      success:^(AFHTTPRequestOperation *operation, id responseObject){
                          
                          JSONDecoder* decoder = [[JSONDecoder alloc]
@@ -108,7 +108,7 @@
     __block NSDictionary *detailedInfo;
     
     [self.httpClient getPath:[self cleanStringURL:issueURL]
-                  parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"]
+                  parameters:self.session
                      success:^(AFHTTPRequestOperation *operation, id response) {
                          JSONDecoder* decoder = [[JSONDecoder alloc]
                                                  initWithParseOptions:JKParseOptionNone];
@@ -131,7 +131,7 @@
 {
     __block NSArray* projects;
     [self.httpClient getPath:@"project"
-                  parameters:[NSDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"]
+                  parameters:self.session
                      success:^(AFHTTPRequestOperation *operation, id response){
                          NSLog(@"\n %s \n Success!", __PRETTY_FUNCTION__);
                          JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionNone];
