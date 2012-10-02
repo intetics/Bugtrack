@@ -54,12 +54,13 @@
 				<float key="IBUISectionHeaderHeight">22</float>
 				<float key="IBUISectionFooterHeight">22</float>
 			</object>
-			<object class="IBUIView" id="734254624">
+			<object class="IBUIView" id="370519414">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<string key="NSFrameSize">{768, 1004}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -101,7 +102,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">nxEV_emptyView</string>
 						<reference key="source" ref="993928743"/>
-						<reference key="destination" ref="734254624"/>
+						<reference key="destination" ref="370519414"/>
 					</object>
 					<int key="connectionID">13</int>
 				</object>
@@ -132,7 +133,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">12</int>
-						<reference key="object" ref="734254624"/>
+						<reference key="object" ref="370519414"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</array>

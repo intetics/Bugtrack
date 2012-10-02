@@ -7,10 +7,11 @@
 //
 
 #import "LeftViewController.h"
+#import "NetworkManager.h"
 #import "UITableView+NXEmptyView.h"
 
 @interface LeftViewController ()
-
+@property (strong, nonatomic) NSArray *projects;
 @end
 
 @implementation LeftViewController
@@ -24,16 +25,18 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
+    NetworkManager *networkManager = [NetworkManager sharedClient];
+        [networkManager getProjectsWithCompletitionBlocksForSuccess:^(id response){
+            self.projects = response;
+            [self.tableView reloadData];
+        } andFailure:^(NSError *error){
+        }];}
 
 - (void)didReceiveMemoryWarning
 {
@@ -41,16 +44,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [self.projects count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -60,7 +63,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
+    cell.textLabel.text = [[self.projects objectAtIndex:indexPath.row] objectForKey:@"name"];
     // Configure the cell...
     
     return cell;
@@ -105,17 +108,13 @@
 }
 */
 
-#pragma mark - Table view delegate
+#pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
+//- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    return @"title";
+//}
 @end
