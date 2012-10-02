@@ -161,7 +161,7 @@
                                           andFailure:(void (^)(NSError* error))failure
 {
     __block NSArray* projects;
-    [self.httpClient getPath:@"project"
+    [self.httpClient getPath:@"api/latest/project"
                   parameters:nil
                      success:^(AFHTTPRequestOperation *operation, id response){
                          NSLog(@"\n %s \n Success!", __PRETTY_FUNCTION__);
