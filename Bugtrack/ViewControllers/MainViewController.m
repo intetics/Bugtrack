@@ -30,6 +30,8 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,16 +58,21 @@
     }
 }
 
+#pragma nark - Memory
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - LoginViewControllerDelegate
+
 - (void) modalViewControllerWillDismiss {
     NSLog(@"%s %d \n%s \n%s \n Dismissed", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__);
     [self getData];
 }
+
+#pragma mark - Private methods
 
 - (void) getData {
     NetworkManager *networkManager = [NetworkManager sharedClient];
@@ -85,10 +92,14 @@
     [self.navigationController presentModalViewController:loginViewController animated:YES];
 }
 
-#pragma mark - Table View
+#pragma mark - UITableViewDataSource
 
 - (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.issues count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return @"title";
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -115,5 +126,5 @@
     return cell;
 }
 
-
+#pragma mark - UITableViewDelegate
 @end
