@@ -13,11 +13,11 @@
 
 + (id) sharedManager;
 - (BOOL) isDataAvailable;
-- (NSDictionary *)getSessionInfo;
+- (NSHTTPCookie *)getSessionInfo;
 - (NSString*) getUserName;
 - (NSString*) getBaseURL;
 - (NSString*) getPassword;
-- (void) setSessionInfo:(NSDictionary*)sessionInfo;
+- (void) setSessionInfo:(NSHTTPCookie*)sessionInfo;
 - (void) setUserName:(NSString*)username;
 - (void) setBaseURL:(NSString*)baseURL;
 - (void) setPassword:(NSString*)password;

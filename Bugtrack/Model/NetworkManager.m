@@ -15,7 +15,7 @@
 @interface NetworkManager ()
 @property (strong, nonatomic) AFHTTPClient * httpClient;
 @property (strong, nonatomic) NSString *baseURL;
-@property (strong, nonatomic) NSDictionary *session;
+@property (strong, nonatomic) NSHTTPCookie *session;
 @end
 
 @implementation NetworkManager
@@ -38,12 +38,23 @@
 }
 
 - (AFHTTPClient *) httpClient {
+    return [self httpClientWithAuthorizationType:BT_AUTHORIZATION_BASIC];
+}
+
+- (AFHTTPClient*) httpClientWithAuthorizationType:(BTAuthorizationType)authorizationType{
     if (!_httpClient) {
         DataManager *dataManager = [DataManager sharedManager];
         self.session = [dataManager getSessionInfo];
         _httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:[dataManager getBaseURL]]];
         _httpClient.parameterEncoding = AFJSONParameterEncoding;
-        [_httpClient setAuthorizationHeaderWithUsername:[dataManager getUserName] password:[dataManager getPassword]];
+        
+        if (authorizationType == BT_AUTHORIZATION_BASIC) {
+            [_httpClient setAuthorizationHeaderWithUsername:[dataManager getUserName] password:[dataManager getPassword]];
+        } else {
+            DataManager *dataManager = [DataManager sharedManager];
+            NSHTTPCookie *session = [dataManager getSessionInfo];
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:session];
+        }
     }
     return _httpClient;
 }
@@ -52,12 +63,9 @@
 
 - (BOOL) isCoockieValidSuccess:(void(^)(id response))success failure:(void(^)(NSError *error))failure {
     __block BOOL valid = NO;
-    DataManager *dataManager = [DataManager sharedManager];
-    NSDictionary *session = [dataManager getSessionInfo];
-    [self.httpClient getPath:@"auth/latest/session" parameters:session
+        [self.httpClient getPath:@"auth/latest/session" parameters:nil
                      success:^(AFHTTPRequestOperation *operation, id response){
                          if (success) {
-                             self.session = session;
                              success(response);
                          }
                      }
@@ -77,7 +85,6 @@
                           JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionNone];
                           NSDictionary *json = [decoder objectWithData:response];
                           NSLog(@"Response: %@", json);
-                          self.session = [json objectForKey:@"session"];
                           DataManager *dataManger = [DataManager sharedManager];
                           [dataManger setSessionInfo:self.session];
                           [dataManger save];
@@ -103,10 +110,10 @@
     
     NSString *path = @"api/latest/search?jql=assignee%3D";
     NSMutableString *fullpath = [path mutableCopy];
-    [fullpath appendString:@"\%22"];
+    [fullpath appendString:@"%22"];
     [fullpath appendString:[dataManager getUserName]];
     [fullpath appendString:@"%22"];
-    [fullpath appendString:@"\%20and\%20status\%20in\%20(\%22open\%22,\%22in%20progress\%22,\%22reopened\%22)"];
+    [fullpath appendString:@"%20and%20status%20in%20(%22open%22,%22in%20progress%22,%22reopened%22)"];
     
     __block NSDictionary *response;
     [self.httpClient getPath:fullpath

@@ -46,7 +46,7 @@
     return [userDefaults boolForKey:@"Saved"];
 }
 
-- (NSDictionary*) getSessionInfo {
+- (NSHTTPCookie*) getSessionInfo {
     return self.loginData.session;
 }
 
@@ -62,7 +62,7 @@
     return self.loginData.password;
 }
 
-- (void) setSessionInfo:(NSDictionary *)sessionInfo {
+- (void) setSessionInfo:(NSHTTPCookie *)sessionInfo {
     self.loginData.session = sessionInfo;
 }
 

@@ -10,7 +10,7 @@
 
 @interface LoginData : NSObject <NSCoding>
 
-@property (strong, nonatomic) NSDictionary* session;
+@property (strong, nonatomic) NSHTTPCookie* session;
 @property (strong, nonatomic) NSString* username;
 @property (strong, nonatomic) NSString* baseurl;
 @property (strong, nonatomic) NSString* password;

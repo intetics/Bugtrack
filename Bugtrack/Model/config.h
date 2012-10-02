@@ -8,6 +8,11 @@
 
 #ifndef BUGTRACK_config_h
 #define BUGTRACK_config_h
+ 
 
+typedef enum {
+    BT_AUTHORIZATION_BASIC,
+    BT_AUTHORIZATION_COOCKIE
+} BTAuthorizationType;
 
 #endif
