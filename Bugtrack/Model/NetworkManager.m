@@ -101,8 +101,7 @@
 }
 
 #pragma mark - Get data
-//TODO: Make it more generic. Right now it uses assumption that we can pass auth. header in request.
-//FIXME: use standard URL encoder, but not do it by yourself
+
 - (void) getAllIssuesForCurrentUserWithSuccess:(void (^)(id response))success
                                     andFailure:(void (^)(NSError* error))failure {
     
@@ -175,6 +174,24 @@
                              failure(error);
                          }
                      }];
+}
+
+- (void) getIssuesForUser:(NSString*)user inProjectWithKey:(NSString*)projectKey{
+    NSMutableDictionary* options = [NSMutableDictionary dictionary];
+    user = user ? user : [[DataManager sharedManager] getUserName];
+    NSString* jql = [NSString stringWithFormat:@"assignee=\"%@\" and project=\"%@\" and status in (\"open\",\"in progress\", \"reopened\")", user, projectKey];
+    [options setObject:jql forKey:@"jql"];
+    NSString* path = @"api/latest/search";
+    [self.httpClient postPath:path
+                   parameters:options
+                      success:^(AFHTTPRequestOperation *operation, id response){
+                          JSONDecoder* decoder = [JSONDecoder decoder];
+                          NSDictionary* issues = [decoder objectWithData:response];
+                          NSLog(@"%@", issues);
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError* error){
+                          NSLog(@"Error: %@", error);
+                      }];
 }
 
 #pragma mark - Miscellaneous
