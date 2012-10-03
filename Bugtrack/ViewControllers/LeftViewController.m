@@ -8,7 +8,10 @@
 
 #import "LeftViewController.h"
 #import "NetworkManager.h"
+#import "AppDelegate.h"
+#import "JASidePanelController.h"
 #import "UITableView+NXEmptyView.h"
+
 
 @interface LeftViewController ()
 @property (strong, nonatomic) NSArray *projects;
@@ -111,7 +114,9 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [appDelegate.viewController showCenterPanel:YES];
 }
 
 //- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

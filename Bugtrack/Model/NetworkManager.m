@@ -108,16 +108,14 @@
     
     DataManager* dataManager = [DataManager sharedManager];
     
-    NSString *path = @"api/latest/search?jql=assignee%3D";
-    NSMutableString *fullpath = [path mutableCopy];
-    [fullpath appendString:@"%22"];
-    [fullpath appendString:[dataManager getUserName]];
-    [fullpath appendString:@"%22"];
-    [fullpath appendString:@"%20and%20status%20in%20(%22open%22,%22in%20progress%22,%22reopened%22)"];
+    NSString *path = @"api/latest/search";
+    NSString* assignee = [NSString stringWithFormat:@"assignee=\"%@\" and status in (\"open\",\"in progress\", \"reopened\")", [dataManager getUserName]];
+    NSMutableDictionary *json = [NSMutableDictionary dictionary];
+    [json setObject:assignee forKey:@"jql"];
     
     __block NSDictionary *response;
-    [self.httpClient getPath:fullpath
-                  parameters:nil
+    [self.httpClient postPath:path
+                  parameters:json
                      success:^(AFHTTPRequestOperation *operation, id responseObject){
                          
                          JSONDecoder* decoder = [[JSONDecoder alloc]
