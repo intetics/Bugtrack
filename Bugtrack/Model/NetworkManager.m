@@ -12,6 +12,7 @@
 #import "JSONKit.h"
 #import "DataManager.h"
 #import "Project.h"
+#import "Issue.h"
 
 @interface NetworkManager ()
 @property (strong, nonatomic) AFHTTPClient * httpClient;
@@ -186,10 +187,9 @@
                    parameters:options
                       success:^(AFHTTPRequestOperation *operation, id response){
                           JSONDecoder* decoder = [JSONDecoder decoder];
-                          NSDictionary* issues = [decoder objectWithData:response];
-                          NSLog(@"%@", issues);
+                          NSMutableArray* data = [self mapIssues:[decoder objectWithData:response]];
                           if (success) {
-                              success(issues);
+                              success(data);
                           }
                       }
                       failure:^(AFHTTPRequestOperation *operation, NSError* error){
@@ -221,4 +221,36 @@
     return mappedData;
 }
 
+- (NSMutableArray*) mapIssues:(NSDictionary*)response {
+    
+    NSMutableArray* mappedData = [NSMutableArray array];
+    NSArray* issues = [response objectForKey:@"issues"];
+    for (NSDictionary* raw in issues) {
+        Issue* temp = [[Issue alloc] init];
+        temp.key = [raw objectForKey:@"key"];
+        temp.link = [raw objectForKey:@"self"];
+        [mappedData addObject:temp];
+    }
+    return mappedData;
+}
+
+- (Issue* )mapDetailedIssueInfo:(id)response{
+//    Issue* temp = [[Issue alloc] init];
+//    temp.assignee = [raw objectForKey:@""];
+//    temp.created = [raw objectForKey:@""];
+//    temp.issueType = [raw objectForKey:@""];
+//    temp.priority = [raw objectForKey:@""];
+//    temp.reporter = [raw objectForKey:@""];
+//    temp.status = [raw objectForKey:@""];
+//    temp.title = [raw objectForKey:@""];
+//    [mappedData addObject:temp];
+    //        fields.assignee.value.displayName   assignee
+    //        fields.created.value				created
+    //        fields.issuetype.value.name 		issuetype
+    //        fields.priority.value.name 			priority
+    //        fields.reporter.displayName 		reporter
+    //        fields.status.value.name 			status
+    //        fields.summary.value 				name
+    return nil;
+}
 @end
