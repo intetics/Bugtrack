@@ -11,6 +11,7 @@
 #import "config.h"
 #import "JSONKit.h"
 #import "DataManager.h"
+#import "Project.h"
 
 @interface NetworkManager ()
 @property (strong, nonatomic) AFHTTPClient * httpClient;
@@ -157,15 +158,14 @@
 - (void) getProjectsWithCompletitionBlocksForSuccess:(void (^)(id response))success
                                           andFailure:(void (^)(NSError* error))failure
 {
-    __block NSArray* projects;
     [self.httpClient getPath:@"api/latest/project"
                   parameters:nil
                      success:^(AFHTTPRequestOperation *operation, id response){
                          NSLog(@"\n %s \n Success!", __PRETTY_FUNCTION__);
                          JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionNone];
-                         projects = [decoder objectWithData:response];
+                         NSMutableArray* data = [self mapProjects:[decoder objectWithData:response]];
                          if (success) {
-                             success(projects);
+                             success(data);
                          }
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error){
@@ -202,6 +202,20 @@
 //    length++;
     NSString *rightURL = [stringURL substringFromIndex:length];
     return rightURL;
+}
+
+#pragma mark - Mapping
+
+- (NSMutableArray*) mapProjects:(NSArray*)projects {
+    NSMutableArray* mappedData = [NSMutableArray array];
+    for (NSDictionary* raw in projects) {
+        Project* temp = [[Project alloc] init];
+        temp.key = [raw objectForKey:@"key"];
+        temp.name = [raw objectForKey:@"name"];
+        temp.link = [raw objectForKey:@"self"];
+        [mappedData addObject:temp];
+    }
+    return mappedData;
 }
 
 @end
