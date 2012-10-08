@@ -176,7 +176,7 @@
                      }];
 }
 
-- (void) getIssuesForUser:(NSString*)user inProjectWithKey:(NSString*)projectKey{
+- (void) getIssuesForUser:(NSString*)user inProjectWithKey:(NSString*)projectKey withSucces:(void(^)(id response))success{
     NSMutableDictionary* options = [NSMutableDictionary dictionary];
     user = user ? user : [[DataManager sharedManager] getUserName];
     NSString* jql = [NSString stringWithFormat:@"assignee=\"%@\" and project=\"%@\" and status in (\"open\",\"in progress\", \"reopened\")", user, projectKey];
@@ -188,6 +188,9 @@
                           JSONDecoder* decoder = [JSONDecoder decoder];
                           NSDictionary* issues = [decoder objectWithData:response];
                           NSLog(@"%@", issues);
+                          if (success) {
+                              success(issues);
+                          }
                       }
                       failure:^(AFHTTPRequestOperation *operation, NSError* error){
                           NSLog(@"Error: %@", error);

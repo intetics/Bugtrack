@@ -16,6 +16,6 @@
 - (void) getDetailedIssueInfo:(NSString *)issueURL success:(void (^)(id response))success andFailure:(void (^)(NSError* error))failure;
 - (void) getProjectsWithCompletitionBlocksForSuccess:(void (^)(id response))success andFailure:(void (^)(NSError* error))failure;
 - (BOOL) isCoockieValidSuccess:(void(^)(id response))success failure:(void(^)(NSError *error))failure ;
-- (void) getIssuesForUser:(NSString*)user inProjectWithKey:(NSString*)projectKey;
+- (void) getIssuesForUser:(NSString*)user inProjectWithKey:(NSString*)projectKey withSucces:(void(^)(id response))success;
 - (NSString *) cleanStringURL:(NSString *)stringURL;
 @end
