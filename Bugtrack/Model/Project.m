@@ -12,7 +12,7 @@
 
 #pragma mark - NSObject method reloading
 - (NSString*) description {
-    NSString *description = [NSString stringWithFormat:@"Project: \nName: %@ \n Key:%@ \n Link:%@ \n Issues count: %u" , self.name, self.key, self.link, [self.issues count]];
+    NSString *description = [NSString stringWithFormat:@"Project: \nName: %@ \n Key:%@ \n Link:%@ \n Issues count: %u" , self.title, self.key, self.link, [self.issues count]];
     return description;
 }
 

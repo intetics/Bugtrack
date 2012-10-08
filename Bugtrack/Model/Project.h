@@ -10,7 +10,7 @@
 
 @interface Project : NSObject
 @property (strong, nonatomic) NSString* key;
-@property (strong, nonatomic) NSString* name;
+@property (strong, nonatomic) NSString* title;
 @property (strong, nonatomic) NSString* link;
 @property (strong, nonatomic) NSArray* issues;
 @end
