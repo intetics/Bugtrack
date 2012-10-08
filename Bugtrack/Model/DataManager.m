@@ -7,9 +7,13 @@
 //
 
 #import "DataManager.h"
+#import "NetworkManager.h"
+#import "Project.h"
 
 @interface DataManager()
 @property (strong, nonatomic) LoginData *loginData;
+@property (strong, nonatomic) NSArray* projects;
+@property (weak, nonatomic) NetworkManager* networkManager;
 
 @end
 
@@ -20,6 +24,7 @@
 }
 @synthesize loginData = _loginData;
 
+#pragma mark - Init
 + (id)sharedManager {
     static dispatch_once_t onceToken = 0;
     __strong static id __sharedClient = nil;
@@ -42,6 +47,7 @@
     return self;
 }
 
+#pragma mark - Getters
 - (BOOL) isDataAvailable {
     return [userDefaults boolForKey:@"Saved"];
 }
@@ -62,6 +68,7 @@
     return self.loginData.password;
 }
 
+#pragma mark - Setters
 - (void) setSessionInfo:(NSHTTPCookie *)sessionInfo {
     self.loginData.session = sessionInfo;
 }
@@ -77,6 +84,8 @@
 - (void) setPassword:(NSString *)password {
     self.loginData.password = password;
 }
+
+#pragma mark - Percistence (kind of)
 - (void) save {
     NSData *encodedData = [NSKeyedArchiver archivedDataWithRootObject:self.loginData];
     [userDefaults setObject:encodedData forKey:@"data"];
@@ -85,6 +94,32 @@
 
 }
 
-- (void)dealloc {
-   }
+#pragma mark - Data loading
+
+- (void) getData {
+    [self getProjects];
+}
+- (void) getProjects {
+    self.networkManager = [NetworkManager sharedClient];
+    [self.networkManager getProjectsWithCompletitionBlocksForSuccess:^(id projects){
+        self.projects = projects;
+        [self getIssues];
+    }
+                                              andFailure:^(NSError* error){
+                                              }];
+}
+- (void) getIssues {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BT_PROJECTS_HERE" object:nil];
+    int count = [self.projects count];
+    __block int blockCount = 1;
+    for (Project* project in self.projects) {
+        [self.networkManager getIssuesForUser:nil inProjectWithKey:project.key withSucces:^(id response) {
+            project.issues = response;
+            if (blockCount < count)
+                blockCount++;
+            else
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"BT_ISSUES_HERE" object:nil];
+        }];
+    }
+}
 @end

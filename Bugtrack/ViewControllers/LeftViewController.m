@@ -7,23 +7,23 @@
 //
 
 #import "LeftViewController.h"
-#import "NetworkManager.h"
 #import "AppDelegate.h"
 #import "JASidePanelController.h"
 #import "UITableView+NXEmptyView.h"
+#import "Project.h"
+#import "DataManager.h"
 
 
 @interface LeftViewController ()
-@property (strong, nonatomic) NSArray *projects;
+@property (weak, nonatomic) NSArray *projects;
 @end
 
 @implementation LeftViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recieveNotification:) name:@"BT_PROJECTS_HERE" object:nil];
     }
     return self;
 }
@@ -33,13 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    NetworkManager *networkManager = [NetworkManager sharedClient];
-        [networkManager getProjectsWithCompletitionBlocksForSuccess:^(id response){
-            self.projects = response;
-            [self.tableView reloadData];
-        } andFailure:^(NSError *error){
-        }];}
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -66,50 +60,12 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.text = [[self.projects objectAtIndex:indexPath.row] objectForKey:@"name"];
+    Project* project = [self.projects objectAtIndex:indexPath.row];
+    cell.textLabel.text = project.title;
     // Configure the cell...
     
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - UITableViewDelegate
 
@@ -119,7 +75,9 @@
     [appDelegate.viewController showCenterPanel:YES];
 }
 
-//- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    return @"title";
-//}
+#pragma mark - Notification handling
+- (void) recieveNotification:(NSNotification *)notification {
+    self.projects = [[DataManager sharedManager] projects];
+    [self.tableView reloadData];
+}
 @end

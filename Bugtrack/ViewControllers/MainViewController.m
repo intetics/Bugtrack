@@ -12,10 +12,11 @@
 #import "NetworkManager.h"
 #import "DataManager.h"
 #import "MBProgressHUD.h"
+#import "Project.h"
+#import "Issue.h"
 
 @interface MainViewController ()
-@property (strong, nonatomic) NSArray *issues;
-- (void) getData;
+@property (weak, nonatomic) NSArray *projects;
 - (void) showLogin;
 @end
 
@@ -25,7 +26,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recieveNotification:) name:@"BT_ISSUES_HERE" object:nil];
     }
     return self;
 }
@@ -47,7 +48,7 @@
     if ([dataManager isDataAvailable]) {
         NetworkManager *networkManager = [NetworkManager sharedClient];
         [networkManager isCoockieValidSuccess:^(id response){
-            [self getData];
+            [[DataManager sharedManager] getData];
         }
                                       failure:^(NSError *error){
                                           [self showLogin];
@@ -69,21 +70,10 @@
 
 - (void) modalViewControllerWillDismiss {
     NSLog(@"%s %d \n%s \n%s \n Dismissed", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__);
-    [self getData];
+    [[DataManager sharedManager] getData];
 }
 
 #pragma mark - Private methods
-
-- (void) getData {
-    NetworkManager *networkManager = [NetworkManager sharedClient];
-    [networkManager getAllIssuesForCurrentUserWithSuccess:^(id response){
-        self.issues = response;
-        [self.tableView reloadData];
-    }
-                                               andFailure:^(NSError *error){
-                                                   NSLog(@"%s %d \n%s \n%s \n Error: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
-                                               }];
-}
 
 - (void) showLogin {
     LoginViewController* loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
@@ -93,38 +83,52 @@
 }
 
 #pragma mark - UITableViewDataSource
-
-- (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.issues count];
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
+    return [self.projects count];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return @"title";
+- (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
+   return [[[self.projects objectAtIndex:section] issues] count];
+}
+
+- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return [[self.projects objectAtIndex:section] title];
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString * reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     }
-    NSString *issueURL = [[self.issues objectAtIndex:indexPath.row] objectForKey:@"self"];
+    
+    Project* project = [self.projects objectAtIndex:indexPath.section];
+    Issue* issue = [project.issues objectAtIndex:indexPath.row];
     NetworkManager *sharedNetworkManger = [NetworkManager sharedClient];
     __block NSDictionary *issueInfo;
-    [sharedNetworkManger getDetailedIssueInfo:issueURL
+    cell.textLabel.text = @"Loading                                                                   ";
+    [sharedNetworkManger getDetailedIssueInfo:issue
                                       success:^(id response){
                                           dispatch_async(dispatch_get_main_queue(), ^{
                                               issueInfo = response;
-                                              cell.textLabel.text = [[[issueInfo objectForKey:@"fields"] objectForKey:@"summary"] objectForKey:@"value"];
+                                              cell.textLabel.text = issue.title;
                                           });
                                       }
                                    andFailure:^(NSError* error){
                                    }];
     
-    NSString *subTitle = [[self.issues objectAtIndex:indexPath.row] objectForKey:@"key"];
-    cell.detailTextLabel.text = subTitle;
+    cell.detailTextLabel.text = issue.key;
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
+
+#pragma mark - NSNotification
+
+- (void) recieveNotification:(NSNotification*) notification{
+    self.projects = [[DataManager sharedManager] projects];
+    [self.tableView reloadData];
+}
+
 @end

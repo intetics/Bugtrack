@@ -11,6 +11,8 @@
 #import "config.h"
 #import "JSONKit.h"
 #import "DataManager.h"
+#import "Project.h"
+#import "Issue.h"
 
 @interface NetworkManager ()
 @property (strong, nonatomic) AFHTTPClient * httpClient;
@@ -132,15 +134,16 @@
                      }];
 }
 
-- (void) getDetailedIssueInfo:(NSString *)issueURL success:(void (^)(id response))success andFailure:(void (^)(NSError* error))failure{
+- (void) getDetailedIssueInfo:(Issue *)issue success:(void (^)(id response))success andFailure:(void (^)(NSError* error))failure{
     __block NSDictionary *detailedInfo;
     
-    [self.httpClient getPath:[self cleanStringURL:issueURL]
+    [self.httpClient getPath:[self cleanStringURL:issue.link]
                   parameters:nil
                      success:^(AFHTTPRequestOperation *operation, id response) {
                          JSONDecoder* decoder = [[JSONDecoder alloc]
                                                  initWithParseOptions:JKParseOptionNone];
                          detailedInfo = [decoder objectWithData:response];
+                         [self mapDetailedInfo:detailedInfo toIssue:issue];
                          NSLog(@"%s %d \n%s \n%s \n Detailed info: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, detailedInfo);
                          if (success) {
                              success(detailedInfo);
@@ -157,15 +160,14 @@
 - (void) getProjectsWithCompletitionBlocksForSuccess:(void (^)(id response))success
                                           andFailure:(void (^)(NSError* error))failure
 {
-    __block NSArray* projects;
     [self.httpClient getPath:@"api/latest/project"
                   parameters:nil
                      success:^(AFHTTPRequestOperation *operation, id response){
                          NSLog(@"\n %s \n Success!", __PRETTY_FUNCTION__);
                          JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionNone];
-                         projects = [decoder objectWithData:response];
+                         NSMutableArray* data = [self mapProjects:[decoder objectWithData:response]];
                          if (success) {
-                             success(projects);
+                             success(data);
                          }
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error){
@@ -176,7 +178,7 @@
                      }];
 }
 
-- (void) getIssuesForUser:(NSString*)user inProjectWithKey:(NSString*)projectKey{
+- (void) getIssuesForUser:(NSString*)user inProjectWithKey:(NSString*)projectKey withSucces:(void(^)(id response))success{
     NSMutableDictionary* options = [NSMutableDictionary dictionary];
     user = user ? user : [[DataManager sharedManager] getUserName];
     NSString* jql = [NSString stringWithFormat:@"assignee=\"%@\" and project=\"%@\" and status in (\"open\",\"in progress\", \"reopened\")", user, projectKey];
@@ -186,8 +188,10 @@
                    parameters:options
                       success:^(AFHTTPRequestOperation *operation, id response){
                           JSONDecoder* decoder = [JSONDecoder decoder];
-                          NSDictionary* issues = [decoder objectWithData:response];
-                          NSLog(@"%@", issues);
+                          NSMutableArray* data = [self mapIssues:[decoder objectWithData:response]];
+                          if (success) {
+                              success(data);
+                          }
                       }
                       failure:^(AFHTTPRequestOperation *operation, NSError* error){
                           NSLog(@"Error: %@", error);
@@ -204,4 +208,42 @@
     return rightURL;
 }
 
+#pragma mark - Mapping
+
+- (NSMutableArray*) mapProjects:(NSArray*)projects {
+    NSMutableArray* mappedData = [NSMutableArray array];
+    for (NSDictionary* raw in projects) {
+        Project* temp = [[Project alloc] init];
+        temp.key = [raw objectForKey:@"key"];
+        temp.title = [raw objectForKey:@"name"];
+        temp.link = [raw objectForKey:@"self"];
+        [mappedData addObject:temp];
+    }
+    return mappedData;
+}
+
+- (NSMutableArray*) mapIssues:(NSDictionary*)response {
+    
+    NSMutableArray* mappedData = [NSMutableArray array];
+    NSArray* issues = [response objectForKey:@"issues"];
+    for (NSDictionary* raw in issues) {
+        Issue* temp = [[Issue alloc] init];
+        temp.key = [raw objectForKey:@"key"];
+        temp.link = [raw objectForKey:@"self"];
+        [mappedData addObject:temp];
+    }
+    return mappedData;
+}
+
+- (Issue* )mapDetailedInfo:(id)response toIssue:(Issue*)issue{
+    
+    issue.assignee = [response valueForKeyPath:@"fields.assignee.value.displayName"];
+    issue.created = [response valueForKeyPath:@"fields.created.value"];
+    issue.issueType = [response valueForKeyPath:@"fields.issuetype.value.name"];
+    issue.priority = [response valueForKeyPath:@"fields.priority.value.name"];
+    issue.reporter = [response valueForKeyPath:@"fields.reporter.value.displayName"];
+    issue.status = [response valueForKeyPath:@"fields.status.value.name"];
+    issue.title = [response valueForKeyPath:@"fields.summary.value"];
+    return nil;
+}
 @end

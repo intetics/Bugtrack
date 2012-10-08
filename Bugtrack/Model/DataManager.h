@@ -22,4 +22,5 @@
 - (void) setBaseURL:(NSString*)baseURL;
 - (void) setPassword:(NSString*)password;
 - (void) save;
+- (void) getData;
 @end
