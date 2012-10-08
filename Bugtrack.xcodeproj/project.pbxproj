@@ -90,6 +90,17 @@
 			name = SidePanel;
 			sourceTree = "<group>";
 		};
+		2769AA241622D38600F6A184 /* Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				27F70F921619D51F00A05F7A /* LoginData.h */,
+				27F70F931619D51F00A05F7A /* LoginData.m */,
+				2769AA121622D2C600F6A184 /* Project.h */,
+				2769AA131622D2C600F6A184 /* Project.m */,
+			);
+			name = Mapping;
+			sourceTree = "<group>";
+		};
 		27B1DD5A1611ED9100E80FFC = {
 			isa = PBXGroup;
 			children = (
@@ -170,15 +181,12 @@
 		27B1DD9D1611F77400E80FFC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2769AA241622D38600F6A184 /* Mapping */,
 				27B1DD9E1611F79100E80FFC /* config.h */,
 				271D354A16130374001C35E7 /* NetworkManager.h */,
 				271D354B16130374001C35E7 /* NetworkManager.m */,
 				270C3AFE1619AB3A00EB5454 /* DataManager.h */,
 				270C3AFF1619AB3A00EB5454 /* DataManager.m */,
-				27F70F921619D51F00A05F7A /* LoginData.h */,
-				27F70F931619D51F00A05F7A /* LoginData.m */,
-				2769AA121622D2C600F6A184 /* Project.h */,
-				2769AA131622D2C600F6A184 /* Project.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
