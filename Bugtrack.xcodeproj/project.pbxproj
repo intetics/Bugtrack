@@ -13,6 +13,8 @@
 		274A587216121056007D9C09 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274A587016121056007D9C09 /* MainViewController.xib */; };
 		2769AA141622D2C600F6A184 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 2769AA131622D2C600F6A184 /* Project.m */; };
 		2769AA6E1622E76400F6A184 /* Issue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2769AA6D1622E76400F6A184 /* Issue.m */; };
+		278D16DC16233645006AFEBD /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278D16DA16233645006AFEBD /* DetailViewController.m */; };
+		278D16DD16233645006AFEBD /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278D16DB16233645006AFEBD /* DetailViewController.xib */; };
 		27B1DD6A1611ED9100E80FFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B1DD691611ED9100E80FFC /* UIKit.framework */; };
 		27B1DD6C1611ED9100E80FFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B1DD6B1611ED9100E80FFC /* Foundation.framework */; };
 		27B1DD6E1611ED9100E80FFC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B1DD6D1611ED9100E80FFC /* CoreGraphics.framework */; };
@@ -42,6 +44,9 @@
 		2769AA131622D2C600F6A184 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Project.m; path = Model/Project.m; sourceTree = "<group>"; };
 		2769AA6C1622E76400F6A184 /* Issue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Issue.h; path = Model/Issue.h; sourceTree = "<group>"; };
 		2769AA6D1622E76400F6A184 /* Issue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Issue.m; path = Model/Issue.m; sourceTree = "<group>"; };
+		278D16D916233645006AFEBD /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ViewControllers/DetailViewController.h; sourceTree = "<group>"; };
+		278D16DA16233645006AFEBD /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ViewControllers/DetailViewController.m; sourceTree = "<group>"; };
+		278D16DB16233645006AFEBD /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DetailViewController.xib; path = ViewControllers/DetailViewController.xib; sourceTree = "<group>"; };
 		27B1DD651611ED9100E80FFC /* Bugtrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bugtrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B1DD691611ED9100E80FFC /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		27B1DD6B1611ED9100E80FFC /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -106,6 +111,16 @@
 			name = Mapping;
 			sourceTree = "<group>";
 		};
+		278D16D716233627006AFEBD /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				278D16D916233645006AFEBD /* DetailViewController.h */,
+				278D16DA16233645006AFEBD /* DetailViewController.m */,
+				278D16DB16233645006AFEBD /* DetailViewController.xib */,
+			);
+			name = DetailView;
+			sourceTree = "<group>";
+		};
 		27B1DD5A1611ED9100E80FFC = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +179,7 @@
 		27B1DD8F1611EE6F00E80FFC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				278D16D716233627006AFEBD /* DetailView */,
 				274A587B16121319007D9C09 /* SidePanel */,
 				27B1DD9C1611F76700E80FFC /* Login */,
 				274A586E16121056007D9C09 /* MainViewController.h */,
@@ -255,6 +271,7 @@
 				27B1DD941611EEA600E80FFC /* LoginViewController.xib in Resources */,
 				274A587216121056007D9C09 /* MainViewController.xib in Resources */,
 				27FC81D7161B2AE7006E2E83 /* LeftViewController.xib in Resources */,
+				278D16DD16233645006AFEBD /* DetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +309,7 @@
 				27FC81D6161B2AE7006E2E83 /* LeftViewController.m in Sources */,
 				2769AA141622D2C600F6A184 /* Project.m in Sources */,
 				2769AA6E1622E76400F6A184 /* Issue.m in Sources */,
+				278D16DC16233645006AFEBD /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
