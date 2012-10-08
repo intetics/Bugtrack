@@ -17,5 +17,7 @@
 @property (strong, nonatomic) NSString* assignee;
 @property (strong, nonatomic) NSString* reporter;
 @property (strong, nonatomic) NSString* created;
+@property (strong, nonatomic) NSString* key;
+@property (strong, nonatomic) NSString* link;
 
 @end
