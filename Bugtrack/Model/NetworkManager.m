@@ -134,15 +134,16 @@
                      }];
 }
 
-- (void) getDetailedIssueInfo:(NSString *)issueURL success:(void (^)(id response))success andFailure:(void (^)(NSError* error))failure{
+- (void) getDetailedIssueInfo:(Issue *)issue success:(void (^)(id response))success andFailure:(void (^)(NSError* error))failure{
     __block NSDictionary *detailedInfo;
     
-    [self.httpClient getPath:[self cleanStringURL:issueURL]
+    [self.httpClient getPath:[self cleanStringURL:issue.link]
                   parameters:nil
                      success:^(AFHTTPRequestOperation *operation, id response) {
                          JSONDecoder* decoder = [[JSONDecoder alloc]
                                                  initWithParseOptions:JKParseOptionNone];
                          detailedInfo = [decoder objectWithData:response];
+                         [self mapDetailedInfo:detailedInfo toIssue:issue];
                          NSLog(@"%s %d \n%s \n%s \n Detailed info: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, detailedInfo);
                          if (success) {
                              success(detailedInfo);
@@ -214,7 +215,7 @@
     for (NSDictionary* raw in projects) {
         Project* temp = [[Project alloc] init];
         temp.key = [raw objectForKey:@"key"];
-        temp.name = [raw objectForKey:@"name"];
+        temp.title = [raw objectForKey:@"name"];
         temp.link = [raw objectForKey:@"self"];
         [mappedData addObject:temp];
     }
@@ -234,23 +235,15 @@
     return mappedData;
 }
 
-- (Issue* )mapDetailedIssueInfo:(id)response{
-//    Issue* temp = [[Issue alloc] init];
-//    temp.assignee = [raw objectForKey:@""];
-//    temp.created = [raw objectForKey:@""];
-//    temp.issueType = [raw objectForKey:@""];
-//    temp.priority = [raw objectForKey:@""];
-//    temp.reporter = [raw objectForKey:@""];
-//    temp.status = [raw objectForKey:@""];
-//    temp.title = [raw objectForKey:@""];
-//    [mappedData addObject:temp];
-    //        fields.assignee.value.displayName   assignee
-    //        fields.created.value				created
-    //        fields.issuetype.value.name 		issuetype
-    //        fields.priority.value.name 			priority
-    //        fields.reporter.displayName 		reporter
-    //        fields.status.value.name 			status
-    //        fields.summary.value 				name
+- (Issue* )mapDetailedInfo:(id)response toIssue:(Issue*)issue{
+    
+    issue.assignee = [response valueForKeyPath:@"fields.assignee.value.displayName"];
+    issue.created = [response valueForKeyPath:@"fields.created.value"];
+    issue.issueType = [response valueForKeyPath:@"fields.issuetype.value.name"];
+    issue.priority = [response valueForKeyPath:@"fields.priority.value.name"];
+    issue.reporter = [response valueForKeyPath:@"fields.reporter.value.displayName"];
+    issue.status = [response valueForKeyPath:@"fields.status.value.name"];
+    issue.title = [response valueForKeyPath:@"fields.summary.value"];
     return nil;
 }
 @end
