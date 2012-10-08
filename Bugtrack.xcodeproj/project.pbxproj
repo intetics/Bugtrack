@@ -12,6 +12,7 @@
 		274A587116121056007D9C09 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274A586F16121056007D9C09 /* MainViewController.m */; };
 		274A587216121056007D9C09 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274A587016121056007D9C09 /* MainViewController.xib */; };
 		2769AA141622D2C600F6A184 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 2769AA131622D2C600F6A184 /* Project.m */; };
+		2769AA6E1622E76400F6A184 /* Issue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2769AA6D1622E76400F6A184 /* Issue.m */; };
 		27B1DD6A1611ED9100E80FFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B1DD691611ED9100E80FFC /* UIKit.framework */; };
 		27B1DD6C1611ED9100E80FFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B1DD6B1611ED9100E80FFC /* Foundation.framework */; };
 		27B1DD6E1611ED9100E80FFC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B1DD6D1611ED9100E80FFC /* CoreGraphics.framework */; };
@@ -39,6 +40,8 @@
 		274A587016121056007D9C09 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainViewController.xib; path = ../Bugtrack/ViewControllers/MainViewController.xib; sourceTree = "<group>"; };
 		2769AA121622D2C600F6A184 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Project.h; path = Model/Project.h; sourceTree = "<group>"; };
 		2769AA131622D2C600F6A184 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Project.m; path = Model/Project.m; sourceTree = "<group>"; };
+		2769AA6C1622E76400F6A184 /* Issue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Issue.h; path = Model/Issue.h; sourceTree = "<group>"; };
+		2769AA6D1622E76400F6A184 /* Issue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Issue.m; path = Model/Issue.m; sourceTree = "<group>"; };
 		27B1DD651611ED9100E80FFC /* Bugtrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bugtrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B1DD691611ED9100E80FFC /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		27B1DD6B1611ED9100E80FFC /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -97,6 +100,8 @@
 				27F70F931619D51F00A05F7A /* LoginData.m */,
 				2769AA121622D2C600F6A184 /* Project.h */,
 				2769AA131622D2C600F6A184 /* Project.m */,
+				2769AA6C1622E76400F6A184 /* Issue.h */,
+				2769AA6D1622E76400F6A184 /* Issue.m */,
 			);
 			name = Mapping;
 			sourceTree = "<group>";
@@ -286,6 +291,7 @@
 				27F70F941619D51F00A05F7A /* LoginData.m in Sources */,
 				27FC81D6161B2AE7006E2E83 /* LeftViewController.m in Sources */,
 				2769AA141622D2C600F6A184 /* Project.m in Sources */,
+				2769AA6E1622E76400F6A184 /* Issue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
