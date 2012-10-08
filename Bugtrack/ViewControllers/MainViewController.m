@@ -14,6 +14,7 @@
 #import "MBProgressHUD.h"
 #import "Project.h"
 #import "Issue.h"
+#import "DetailViewController.h"
 
 @interface MainViewController ()
 @property (weak, nonatomic) NSArray *projects;
@@ -123,6 +124,15 @@
 }
 
 #pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
+    Project* project = [self.projects objectAtIndex:indexPath.section];
+    Issue* issue = [project.issues objectAtIndex:indexPath.row];
+    detailViewController.issue = issue;
+    [self.navigationController pushViewController:detailViewController animated:YES];
+}
 
 #pragma mark - NSNotification
 
