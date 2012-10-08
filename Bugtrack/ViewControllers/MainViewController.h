@@ -10,5 +10,5 @@
 #import "LoginViewController.h"
 
 @interface MainViewController : UITableViewController <LoginViewControllerDelegate>
-
+- (void) recieveNotification:(NSNotification*) notification;
 @end
