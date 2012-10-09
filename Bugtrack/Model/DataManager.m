@@ -12,7 +12,6 @@
 
 @interface DataManager()
 @property (strong, nonatomic) LoginData *loginData;
-@property (strong, nonatomic) NSArray* projects;
 @property (weak, nonatomic) NetworkManager* networkManager;
 
 @end
@@ -102,7 +101,7 @@
 - (void) getProjects {
     self.networkManager = [NetworkManager sharedClient];
     [self.networkManager getProjectsWithCompletitionBlocksForSuccess:^(id projects){
-        self.projects = projects;
+        self.allProjects = projects;
         [self getIssues];
     }
                                               andFailure:^(NSError* error){
@@ -110,16 +109,27 @@
 }
 - (void) getIssues {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BT_PROJECTS_HERE" object:nil];
-    int count = [self.projects count];
+    int count = [self.allProjects count];
     __block int blockCount = 1;
-    for (Project* project in self.projects) {
+    for (Project* project in self.allProjects) {
         [self.networkManager getIssuesForUser:nil inProjectWithKey:project.key withSucces:^(id response) {
             project.issues = response;
             if (blockCount < count)
                 blockCount++;
             else
+                [self trimProjects];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"BT_ISSUES_HERE" object:nil];
         }];
     }
+}
+
+- (void) trimProjects {
+    NSMutableArray* temp = [NSMutableArray array];
+    for (Project* project in self.allProjects) {
+        if ([project.issues count] > 0) {
+            [temp addObject:project];
+        }
+    }
+    self.projects = temp;
 }
 @end

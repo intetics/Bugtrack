@@ -77,7 +77,7 @@
 
 #pragma mark - Notification handling
 - (void) recieveNotification:(NSNotification *)notification {
-    self.projects = [[DataManager sharedManager] projects];
+    self.projects = [[DataManager sharedManager] allProjects];
     [self.tableView reloadData];
 }
 @end

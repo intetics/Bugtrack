@@ -10,6 +10,8 @@
 #import "LoginData.h"
 
 @interface DataManager : NSObject
+@property (strong, nonatomic) NSArray* allProjects;
+@property (strong, nonatomic) NSArray* projects;
 
 + (id) sharedManager;
 - (BOOL) isDataAvailable;
