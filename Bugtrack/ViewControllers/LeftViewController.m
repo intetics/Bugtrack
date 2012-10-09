@@ -2,43 +2,37 @@
 //  LeftViewController.m
 //  Bugtrack
 //
-//  Created by Ilia Akgaev on 9/25/12.
+//  Created by Ilia Akgaev on 10/2/12.
 //  Copyright (c) 2012 Intetics Co. All rights reserved.
 //
 
-#import "UITableView+NXEmptyView.h"
 #import "LeftViewController.h"
-#import "NetworkManager.h"
+#import "AppDelegate.h"
+#import "JASidePanelController.h"
+#import "UITableView+NXEmptyView.h"
+#import "Project.h"
+#import "DataManager.h"
 
 
 @interface LeftViewController ()
-@property (strong, nonatomic) NSArray *projects;
+@property (weak, nonatomic) NSArray *projects;
 @end
 
 @implementation LeftViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recieveNotification:) name:@"BT_PROJECTS_HERE" object:nil];
     }
     return self;
 }
 
+#pragma mark - UIViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NetworkManager *networkManager = [NetworkManager sharedClient];
-    [networkManager getProjectsWithCompletitionBlocksForSuccess:^(id response){
-        self.projects = response;
-        [self.tableView reloadData];
-    } andFailure:^(NSError *error){
-    }];
-}
-
-- (void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,21 +41,43 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view
+#pragma mark - UITableViewDataSource
 
-- (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return [self.projects count];
 }
 
-- (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString * reuseIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    NSString *title = [[self.projects objectAtIndex:indexPath.row] objectForKey:@"name"];
-    cell.textLabel.text = title;
+    Project* project = [self.projects objectAtIndex:indexPath.row];
+    cell.textLabel.text = project.title;
+    // Configure the cell...
+    
     return cell;
 }
 
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [appDelegate.viewController showCenterPanel:YES];
+}
+
+#pragma mark - Notification handling
+- (void) recieveNotification:(NSNotification *)notification {
+    self.projects = [[DataManager sharedManager] projects];
+    [self.tableView reloadData];
+}
 @end

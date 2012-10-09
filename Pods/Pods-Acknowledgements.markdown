@@ -24,6 +24,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+## TestFlightSDK
+
+All text and design is copyright © 2010-2012 TestFlight App, Inc.
+
+All rights reserved.
+
+https://testflightapp.com/tos/
+
+
 ## UITableView-NXEmptyView
 
 Copyright (c) 2012, nxtbgthng GmbH

@@ -10,9 +10,15 @@
 #import "MainViewController.h"
 #import "LoginViewController.h"
 #import "NetworkManager.h"
+#import "DataManager.h"
+#import "MBProgressHUD.h"
+#import "Project.h"
+#import "Issue.h"
+#import "DetailViewController.h"
 
 @interface MainViewController ()
-@property (strong, nonatomic) NSArray *issues;
+@property (weak, nonatomic) NSArray *projects;
+- (void) showLogin;
 @end
 
 @implementation MainViewController
@@ -21,10 +27,12 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recieveNotification:) name:@"BT_ISSUES_HERE" object:nil];
     }
     return self;
 }
+
+#pragma mark - UIViewController
 
 - (void)viewDidLoad
 {
@@ -37,52 +45,100 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    LoginViewController* loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-    loginViewController.delegate = self;
-    [self.navigationController presentModalViewController:loginViewController animated:YES];
+    DataManager *dataManager = [DataManager sharedManager];
+    if ([dataManager isDataAvailable]) {
+        NetworkManager *networkManager = [NetworkManager sharedClient];
+        [networkManager isCoockieValidSuccess:^(id response){
+            [[DataManager sharedManager] getData];
+        }
+                                      failure:^(NSError *error){
+                                          [self showLogin];
+                                      }];
+
+    } else {
+        [self showLogin];
+    }
 }
 
+#pragma nark - Memory
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - LoginViewControllerDelegate
+
 - (void) modalViewControllerWillDismiss {
     NSLog(@"%s %d \n%s \n%s \n Dismissed", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__);
-    NetworkManager *networkManager = [NetworkManager sharedClient];
-    [networkManager getAllIssuesForCurrentUserWithCompletitionBlocksForSuccess:^(id response){
-        self.issues = response;
-        [self.tableView reloadData];
-    }
-                                                                    andFailure:^(NSError *error){
-                                                                        NSLog(@"%s %d \n%s \n%s \n Error: %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, error);
-                                                                    }];
-    
+    [[DataManager sharedManager] getData];
 }
 
-#pragma mark - Table View
+#pragma mark - Private methods
+
+- (void) showLogin {
+    LoginViewController* loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    loginViewController.delegate = self;
+    [self.navigationController presentModalViewController:loginViewController animated:YES];
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
+    return [self.projects count];
+}
 
 - (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.issues count];
+   return [[[self.projects objectAtIndex:section] issues] count];
+}
+
+- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return [[self.projects objectAtIndex:section] title];
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString * reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     }
-    NSString *issueURL = [[self.issues objectAtIndex:indexPath.row] objectForKey:@"self"];
+    
+    Project* project = [self.projects objectAtIndex:indexPath.section];
+    Issue* issue = [project.issues objectAtIndex:indexPath.row];
     NetworkManager *sharedNetworkManger = [NetworkManager sharedClient];
-    NSDictionary *issueInfo = [sharedNetworkManger getDetailedIssueInfo:issueURL];
-    cell.textLabel.text = [[[issueInfo objectForKey:@"fields"] objectForKey:@"summary"] objectForKey:@"value"];
-    NSString *subTitle = [[self.issues objectAtIndex:indexPath.row] objectForKey:@"key"];
-    cell.detailTextLabel.text = subTitle;
+    __block NSDictionary *issueInfo;
+    cell.textLabel.text = @"Loading                                                                   ";
+    [sharedNetworkManger getDetailedIssueInfo:issue
+                                      success:^(id response){
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              issueInfo = response;
+                                              cell.textLabel.text = issue.title;
+                                          });
+                                      }
+                                   andFailure:^(NSError* error){
+                                   }];
+    
+    cell.detailTextLabel.text = issue.key;
     return cell;
 }
 
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
+    Project* project = [self.projects objectAtIndex:indexPath.section];
+    Issue* issue = [project.issues objectAtIndex:indexPath.row];
+    detailViewController.issue = issue;
+    [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+#pragma mark - NSNotification
+
+- (void) recieveNotification:(NSNotification*) notification{
+    self.projects = [[DataManager sharedManager] projects];
+    [self.tableView reloadData];
+}
 
 @end

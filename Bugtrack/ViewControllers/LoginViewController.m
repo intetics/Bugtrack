@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "../Model/config.h"
 #import "NetworkManager.h"
+#import "DataManager.h"
 
 @interface LoginViewController ()
 
@@ -62,20 +63,18 @@
     NSString *password = self.userPassword.text;
     NSMutableString *baseurl = [@"https://" mutableCopy];
     [baseurl appendString:[self.baseURL.text mutableCopy]];    
-    [baseurl appendString:@"/rest/api/latest/"];    
+    [baseurl appendString:@"/rest/"];    
+    
+    DataManager *dataManager = [DataManager sharedManager];
+    [dataManager setUserName:username];
+    [dataManager setBaseURL:baseurl];
+    [dataManager setPassword:password];
     
     NetworkManager *networkManager = [NetworkManager sharedClient];
-    [networkManager setBaseURL:baseurl];
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:username forKey:@"username"];
-    [userDefaults synchronize];
-
     
     [networkManager loginWithUsername:username
                           andPassword:password
                               success:^(id response){
-                                  NSLog(@"%s %d \n%s \n%s \n Success! \n %@", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
                                   [self.delegate modalViewControllerWillDismiss];
                                   [self dismissModalViewControllerAnimated:YES];
                               }
