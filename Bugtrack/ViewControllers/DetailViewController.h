@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class Issue;
-@interface DetailViewController : UIViewController
+
+@interface DetailViewController : UITableViewController
 @property (weak, nonatomic) Issue* issue;
 @end
