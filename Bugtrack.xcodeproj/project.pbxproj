@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		270C3B001619AB3A00EB5454 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 270C3AFF1619AB3A00EB5454 /* DataManager.m */; };
 		271D354C16130374001C35E7 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 271D354B16130374001C35E7 /* NetworkManager.m */; };
+		2737C9191625A69800A50084 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2737C9181625A69800A50084 /* Security.framework */; };
 		274A587116121056007D9C09 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274A586F16121056007D9C09 /* MainViewController.m */; };
 		274A587216121056007D9C09 /* MainViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274A587016121056007D9C09 /* MainViewController~ipad.xib */; };
 		2769AA141622D2C600F6A184 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 2769AA131622D2C600F6A184 /* Project.m */; };
@@ -41,6 +42,7 @@
 		270C3AFF1619AB3A00EB5454 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = Model/DataManager.m; sourceTree = "<group>"; };
 		271D354A16130374001C35E7 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkManager.h; path = Model/NetworkManager.h; sourceTree = "<group>"; };
 		271D354B16130374001C35E7 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkManager.m; path = Model/NetworkManager.m; sourceTree = "<group>"; };
+		2737C9181625A69800A50084 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		274A586E16121056007D9C09 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = ../Bugtrack/ViewControllers/MainViewController.h; sourceTree = "<group>"; };
 		274A586F16121056007D9C09 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = ../Bugtrack/ViewControllers/MainViewController.m; sourceTree = "<group>"; };
 		274A587016121056007D9C09 /* MainViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MainViewController~ipad.xib"; path = "../Bugtrack/ViewControllers/MainViewController~ipad.xib"; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2737C9191625A69800A50084 /* Security.framework in Frameworks */,
 				27B1DD6A1611ED9100E80FFC /* UIKit.framework in Frameworks */,
 				27B1DD6C1611ED9100E80FFC /* Foundation.framework in Frameworks */,
 				27B1DD6E1611ED9100E80FFC /* CoreGraphics.framework in Frameworks */,
@@ -152,6 +155,7 @@
 		27B1DD681611ED9100E80FFC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2737C9181625A69800A50084 /* Security.framework */,
 				27B1DD691611ED9100E80FFC /* UIKit.framework */,
 				27B1DD6B1611ED9100E80FFC /* Foundation.framework */,
 				27B1DD6D1611ED9100E80FFC /* CoreGraphics.framework */,
