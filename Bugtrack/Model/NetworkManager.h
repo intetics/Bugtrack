@@ -10,6 +10,7 @@
 @class Issue;
 @interface NetworkManager : NSObject
 + (id)sharedClient;
++ (NSDictionary*) getAccount;
 - (void) setBaseURL:(NSString*)baseURL;
 - (void) loginWithUsername:(NSString*)username andPassword:(NSString*) password success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 - (void) getAllIssuesForCurrentUserWithSuccess:(void (^)(id response))success andFailure:(void (^)(NSError* error))failure;

@@ -10,6 +10,7 @@
 #import "JASidePanelController.h"
 #import "MainViewController.h"
 #import "LeftViewController.h"
+#import "LoginViewController.h"
 
 @implementation AppDelegate
 
@@ -20,7 +21,9 @@
     self.viewController.leftPanel = [[LeftViewController alloc] initWithNibName:@"LeftViewController" bundle:nil] ;
 //    self.viewController.leftFixedWidth = self.window.frame.size.width - 100;
     self.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil]];
-    self.window.rootViewController = self.viewController;
+//    self.window.rootViewController = self.viewController;
+    LoginViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    self.window.rootViewController = loginViewController;
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -50,6 +53,12 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Helpers
+
+- (void) loginFinished {
+    self.window.rootViewController = self.viewController;
 }
 
 @end

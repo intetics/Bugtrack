@@ -93,12 +93,22 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
+<<<<<<< HEAD
 					<object class="IBUILabel" id="381350847">
 						<reference key="NSNextResponder" ref="395484316"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 175}, {285, 61}}</string>
 						<reference key="NSSuperview" ref="395484316"/>
 						<reference key="NSWindow"/>
+=======
+					<object class="IBUILabel" id="61786357">
+						<reference key="NSNextResponder" ref="395484316"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{34, 172}, {253, 34}}</string>
+						<reference key="NSSuperview" ref="395484316"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
+>>>>>>> feature_keychain
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -113,7 +123,10 @@
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
+<<<<<<< HEAD
 						<int key="IBUITextAlignment">1</int>
+=======
+>>>>>>> feature_keychain
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">1</int>
 							<double key="pointSize">17</double>
@@ -129,6 +142,10 @@
 				<string key="NSFrameSize">{320, 568}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+<<<<<<< HEAD
+=======
+				<reference key="NSNextKeyView" ref="61786357"/>
+>>>>>>> feature_keychain
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -189,7 +206,11 @@
 						<int key="objectID">3</int>
 						<reference key="object" ref="395484316"/>
 						<array class="NSMutableArray" key="children">
+<<<<<<< HEAD
 							<reference ref="381350847"/>
+=======
+							<reference ref="61786357"/>
+>>>>>>> feature_keychain
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -200,7 +221,11 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">7</int>
+<<<<<<< HEAD
 						<reference key="object" ref="381350847"/>
+=======
+						<reference key="object" ref="61786357"/>
+>>>>>>> feature_keychain
 						<reference key="parent" ref="395484316"/>
 					</object>
 				</array>
