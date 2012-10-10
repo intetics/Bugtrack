@@ -18,7 +18,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.viewController = [[JASidePanelController alloc] init];
     self.viewController.leftPanel = [[LeftViewController alloc] initWithNibName:@"LeftViewController" bundle:nil] ;
-    self.viewController.leftFixedWidth = 300;
+//    self.viewController.leftFixedWidth = self.window.frame.size.width - 100;
     self.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil]];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
