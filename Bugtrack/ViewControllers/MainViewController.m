@@ -18,7 +18,6 @@
 
 @interface MainViewController ()
 @property (weak, nonatomic) NSArray *projects;
-- (void) showLogin;
 @end
 
 @implementation MainViewController
@@ -45,19 +44,6 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    DataManager *dataManager = [DataManager sharedManager];
-    if ([dataManager isDataAvailable]) {
-        NetworkManager *networkManager = [NetworkManager sharedClient];
-        [networkManager isCoockieValidSuccess:^(id response){
-            [[DataManager sharedManager] getData];
-        }
-                                      failure:^(NSError *error){
-                                          [self showLogin];
-                                      }];
-
-    } else {
-        [self showLogin];
-    }
 }
 
 #pragma nark - Memory
@@ -65,22 +51,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - LoginViewControllerDelegate
-
-- (void) modalViewControllerWillDismiss {
-    NSLog(@"%s %d \n%s \n%s \n Dismissed", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__);
-    [[DataManager sharedManager] getData];
-}
-
-#pragma mark - Private methods
-
-- (void) showLogin {
-    LoginViewController* loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-    loginViewController.delegate = self;
-    [self.navigationController presentModalViewController:loginViewController animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
