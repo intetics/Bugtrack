@@ -8,8 +8,8 @@
 
 #import "LoginViewController.h"
 #import "NetworkManager.h"
-#import "DataManager.h"
 #import "AppDelegate.h"
+#import "SSKeychain.h"
 
 @implementation LoginViewController
 
@@ -25,12 +25,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.loginButton.enabled = NO;
+//    self.loginButton.enabled = NO;
     [self hideLoginForm:YES];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    NSDictionary* account = [NetworkManager getAccount];
+    if (!account) {
+        [self hideLoginForm:NO];
+        return;
+    }
+    NetworkManager* networkManager = [NetworkManager sharedClient];
+    [networkManager setBaseURL:[account objectForKey:@"service"]];
+    
+    [networkManager loginWithUsername:[account objectForKey:@"username"]
+                          andPassword:[account objectForKey:@"password"]
+                              success:^(id response){
+                                  [self successfullLogin];
+                              }
+                              failure:^(NSError* error){
+                                  NSLog(@"Error: %@", error);
+                                  [self hideLoginForm:NO];
+                              }];
+
+    
 }
 
 - (void) viewDidUnload {
@@ -49,6 +69,23 @@
 
 #pragma mark - IBActions
 - (IBAction)performLogin:(id)sender {
+    NSString *username = self.userName.text;
+    NSString *password = self.userPassword.text;
+    NSMutableString *baseurl = [@"https://" mutableCopy];
+    [baseurl appendString:[self.baseURL.text mutableCopy]];
+    [baseurl appendString:@"/rest/"];
+    
+    NetworkManager* networkManager = [NetworkManager sharedClient];
+    [networkManager setBaseURL:baseurl];
+    
+    [networkManager loginWithUsername:username andPassword:password
+                              success:^(id response){
+                                  [SSKeychain setPassword:password forService:baseurl account:username];
+                                  [self successfullLogin];
+                              }
+                              failure:^(NSError* error){
+                                  NSLog(@"Error: %@", error);
+                              }];
     
 }
 
@@ -66,7 +103,6 @@
     }
 }
 
-//TODO: after testing move it right into compl. block
 - (void) successfullLogin {
     AppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     [appDelegate loginFinished];

@@ -11,17 +11,12 @@
 #import "Project.h"
 
 @interface DataManager()
-@property (strong, nonatomic) LoginData *loginData;
 @property (weak, nonatomic) NetworkManager* networkManager;
 
 @end
 
 
 @implementation DataManager
-{
-    NSUserDefaults *userDefaults;
-}
-@synthesize loginData = _loginData;
 
 #pragma mark - Init
 + (id)sharedManager {
@@ -31,66 +26,6 @@
         __sharedClient = [[self alloc] init];
     });
     return __sharedClient;
-}
-
-- (id) init {
-    if (self = [super init]) {
-        userDefaults = [NSUserDefaults standardUserDefaults];
-        if ([self isDataAvailable]) {
-            NSData *encodedData = [userDefaults objectForKey:@"data"];
-            self.loginData = [NSKeyedUnarchiver unarchiveObjectWithData:encodedData];
-        } else {
-            _loginData = [[LoginData alloc] init];
-        }
-    }
-    return self;
-}
-
-#pragma mark - Getters
-- (BOOL) isDataAvailable {
-    return [userDefaults boolForKey:@"Saved"];
-}
-
-- (NSHTTPCookie*) getSessionInfo {
-    return self.loginData.session;
-}
-
-- (NSString*) getUserName {
-    return self.loginData.username;
-}
-
-- (NSString*) getBaseURL {
-    return self.loginData.baseurl;
-}
-
-- (NSString*) getPassword {
-    return self.loginData.password;
-}
-
-#pragma mark - Setters
-- (void) setSessionInfo:(NSHTTPCookie *)sessionInfo {
-    self.loginData.session = sessionInfo;
-}
-
-- (void) setUserName:(NSString*)username {
-    self.loginData.username = username;
-}
-
-- (void) setBaseURL:(NSString *)baseURL {
-    self.loginData.baseurl = baseURL;
-}
-
-- (void) setPassword:(NSString *)password {
-    self.loginData.password = password;
-}
-
-#pragma mark - Percistence (kind of)
-- (void) save {
-    NSData *encodedData = [NSKeyedArchiver archivedDataWithRootObject:self.loginData];
-    [userDefaults setObject:encodedData forKey:@"data"];
-    [userDefaults setBool:YES forKey:@"Saved"];
-    [userDefaults synchronize];
-
 }
 
 #pragma mark - Data loading
@@ -108,6 +43,7 @@
                                               }];
 }
 - (void) getIssues {
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BT_PROJECTS_HERE" object:nil];
     int count = [self.allProjects count];
     __block int blockCount = 1;

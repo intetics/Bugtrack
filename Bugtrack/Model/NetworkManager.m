@@ -10,14 +10,14 @@
 #import "AFNetworking.h"
 #import "config.h"
 #import "JSONKit.h"
-#import "DataManager.h"
 #import "Project.h"
 #import "Issue.h"
+#import "SSKeychain.h"
 
 @interface NetworkManager ()
 @property (strong, nonatomic) AFHTTPClient * httpClient;
-@property (strong, nonatomic) NSString *baseURL;
-@property (strong, nonatomic) NSHTTPCookie *session;
+@property (strong, nonatomic) NSString* baseURL;
+@property (strong, nonatomic) NSString* username;
 @end
 
 @implementation NetworkManager
@@ -45,18 +45,8 @@
 
 - (AFHTTPClient*) httpClientWithAuthorizationType:(BTAuthorizationType)authorizationType{
     if (!_httpClient) {
-        DataManager *dataManager = [DataManager sharedManager];
-        self.session = [dataManager getSessionInfo];
-        _httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:[dataManager getBaseURL]]];
+        _httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:self.baseURL]];
         _httpClient.parameterEncoding = AFJSONParameterEncoding;
-        
-        if (authorizationType == BT_AUTHORIZATION_BASIC) {
-            [_httpClient setAuthorizationHeaderWithUsername:[dataManager getUserName] password:[dataManager getPassword]];
-        } else {
-            DataManager *dataManager = [DataManager sharedManager];
-            NSHTTPCookie *session = [dataManager getSessionInfo];
-            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:session];
-        }
     }
     return _httpClient;
 }
@@ -82,14 +72,13 @@
 - (void) loginWithUsername:(NSString*)username andPassword:(NSString*) password success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
     
     NSDictionary *parameters = [[NSDictionary alloc] initWithObjectsAndKeys:username, @"username", password, @"password", nil];
+    __weak NetworkManager* manager = self;
     [self.httpClient postPath:@"auth/latest/session" parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id response){
                           JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionNone];
                           NSDictionary *json = [decoder objectWithData:response];
                           NSLog(@"Response: %@", json);
-                          DataManager *dataManger = [DataManager sharedManager];
-                          [dataManger setSessionInfo:self.session];
-                          [dataManger save];
+                          [manager.httpClient setAuthorizationHeaderWithUsername:username password:password];
                           if (success) {
                               success(json);
                           }
@@ -106,11 +95,8 @@
 
 - (void) getAllIssuesForCurrentUserWithSuccess:(void (^)(id response))success
                                     andFailure:(void (^)(NSError* error))failure {
-    
-    DataManager* dataManager = [DataManager sharedManager];
-    
     NSString *path = @"api/latest/search";
-    NSString* assignee = [NSString stringWithFormat:@"assignee=\"%@\" and status in (\"open\",\"in progress\", \"reopened\")", [dataManager getUserName]];
+    NSString* assignee = [NSString stringWithFormat:@"assignee=\"%@\" and status in (\"open\",\"in progress\", \"reopened\")", [[NetworkManager getAccount] objectForKey:@"username"]];
     NSMutableDictionary *json = [NSMutableDictionary dictionary];
     [json setObject:assignee forKey:@"jql"];
     
@@ -180,7 +166,7 @@
 
 - (void) getIssuesForUser:(NSString*)user inProjectWithKey:(NSString*)projectKey withSucces:(void(^)(id response))success{
     NSMutableDictionary* options = [NSMutableDictionary dictionary];
-    user = user ? user : [[DataManager sharedManager] getUserName];
+    user = user ? user : [[NetworkManager getAccount] objectForKey:@"username"];
     NSString* jql = [NSString stringWithFormat:@"assignee=\"%@\" and project=\"%@\" and status in (\"open\",\"in progress\", \"reopened\")", user, projectKey];
     [options setObject:jql forKey:@"jql"];
     NSString* path = @"api/latest/search";
@@ -200,10 +186,9 @@
 
 #pragma mark - Miscellaneous
 
-//Removes BASE_URL part from url. length++ because we don't need "/" either 
+//Removes BASE_URL part from url.
 - (NSString *) cleanStringURL:(NSString *)stringURL {
     int length = [self.baseURL length];
-//    length++;
     NSString *rightURL = [stringURL substringFromIndex:length];
     return rightURL;
 }
@@ -245,5 +230,39 @@
     issue.status = [response valueForKeyPath:@"fields.status.value.name"];
     issue.title = [response valueForKeyPath:@"fields.summary.value"];
     return nil;
+}
+
+#pragma mark - Class methods
++ (NSDictionary*) getAccount {
+    NSError* keychainError;
+    NSArray* accounts = [SSKeychain allAccounts];
+    if (!accounts) {
+        NSLog(@"No accounts");
+        return nil;
+    }
+    NSLog(@"Accounts: %@", accounts);
+    NSDictionary* jira = [accounts objectAtIndex:0];
+    NSString* username = [jira objectForKey:@"acct"];
+    if (!username) {
+        NSLog(@"No username");
+        return nil;
+    }
+    NSString* service = [jira objectForKey:@"svce"];
+    if (!service) {
+        NSLog(@"No service");
+        return nil;
+    }
+    NSString* password = [SSKeychain passwordForService:service account:username error:&keychainError];
+    if (!password) {
+        NSLog(@"Error: %@", keychainError);
+        return nil;
+    }
+    NSDictionary* account = [NSDictionary dictionaryWithObjectsAndKeys:
+                          username, @"username",
+                          password, @"password",
+                          service, @"service",
+                          nil];
+    return account;
+
 }
 @end

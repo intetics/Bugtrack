@@ -7,22 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LoginData.h"
 
 @interface DataManager : NSObject
 @property (strong, nonatomic) NSArray* allProjects;
 @property (strong, nonatomic) NSArray* projects;
 
 + (id) sharedManager;
-- (BOOL) isDataAvailable;
-- (NSHTTPCookie *)getSessionInfo;
-- (NSString*) getUserName;
-- (NSString*) getBaseURL;
-- (NSString*) getPassword;
-- (void) setSessionInfo:(NSHTTPCookie*)sessionInfo;
-- (void) setUserName:(NSString*)username;
-- (void) setBaseURL:(NSString*)baseURL;
-- (void) setPassword:(NSString*)password;
-- (void) save;
 - (void) getData;
 @end

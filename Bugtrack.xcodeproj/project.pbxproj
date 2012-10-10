@@ -31,7 +31,6 @@
 		27B1DD801611ED9100E80FFC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27B1DD7F1611ED9100E80FFC /* Default-568h@2x.png */; };
 		27B1DD931611EEA600E80FFC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B1DD911611EEA600E80FFC /* LoginViewController.m */; };
 		27B1DD941611EEA600E80FFC /* LoginViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27B1DD921611EEA600E80FFC /* LoginViewController~ipad.xib */; };
-		27F70F941619D51F00A05F7A /* LoginData.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F70F931619D51F00A05F7A /* LoginData.m */; };
 		27FC81D6161B2AE7006E2E83 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC81D4161B2AE7006E2E83 /* LeftViewController.m */; };
 		27FC81D7161B2AE7006E2E83 /* LeftViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FC81D5161B2AE7006E2E83 /* LeftViewController~ipad.xib */; };
 		65AF27DA7DB34F319DCEDC71 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD42C33BB180411886935D34 /* libPods.a */; };
@@ -74,8 +73,6 @@
 		27B1DD911611EEA600E80FFC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ../Bugtrack/ViewControllers/LoginViewController.m; sourceTree = "<group>"; };
 		27B1DD921611EEA600E80FFC /* LoginViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "LoginViewController~ipad.xib"; path = "../Bugtrack/ViewControllers/LoginViewController~ipad.xib"; sourceTree = "<group>"; };
 		27B1DD9E1611F79100E80FFC /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = Model/config.h; sourceTree = "<group>"; };
-		27F70F921619D51F00A05F7A /* LoginData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginData.h; path = Model/LoginData.h; sourceTree = "<group>"; };
-		27F70F931619D51F00A05F7A /* LoginData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginData.m; path = Model/LoginData.m; sourceTree = "<group>"; };
 		27FC81D3161B2AE7006E2E83 /* LeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftViewController.h; path = ViewControllers/LeftViewController.h; sourceTree = "<group>"; };
 		27FC81D4161B2AE7006E2E83 /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftViewController.m; path = ViewControllers/LeftViewController.m; sourceTree = "<group>"; };
 		27FC81D5161B2AE7006E2E83 /* LeftViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "LeftViewController~ipad.xib"; path = "ViewControllers/LeftViewController~ipad.xib"; sourceTree = "<group>"; };
@@ -113,8 +110,6 @@
 		2769AA241622D38600F6A184 /* Mapping */ = {
 			isa = PBXGroup;
 			children = (
-				27F70F921619D51F00A05F7A /* LoginData.h */,
-				27F70F931619D51F00A05F7A /* LoginData.m */,
 				2769AA121622D2C600F6A184 /* Project.h */,
 				2769AA131622D2C600F6A184 /* Project.m */,
 				2769AA6C1622E76400F6A184 /* Issue.h */,
@@ -325,7 +320,6 @@
 				274A587116121056007D9C09 /* MainViewController.m in Sources */,
 				271D354C16130374001C35E7 /* NetworkManager.m in Sources */,
 				270C3B001619AB3A00EB5454 /* DataManager.m in Sources */,
-				27F70F941619D51F00A05F7A /* LoginData.m in Sources */,
 				27FC81D6161B2AE7006E2E83 /* LeftViewController.m in Sources */,
 				2769AA141622D2C600F6A184 /* Project.m in Sources */,
 				2769AA6E1622E76400F6A184 /* Issue.m in Sources */,
