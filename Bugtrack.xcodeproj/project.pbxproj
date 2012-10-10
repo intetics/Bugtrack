@@ -12,14 +12,14 @@
 		2737C9191625A69800A50084 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2737C9181625A69800A50084 /* Security.framework */; };
 		274A587116121056007D9C09 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274A586F16121056007D9C09 /* MainViewController.m */; };
 		274A587216121056007D9C09 /* MainViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274A587016121056007D9C09 /* MainViewController~ipad.xib */; };
+		274C35E61625E33B00717018 /* LeftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274C35E51625E33B00717018 /* LeftViewController.xib */; };
+		274C35E81625E39100717018 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274C35E71625E39100717018 /* MainViewController.xib */; };
 		2769AA141622D2C600F6A184 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 2769AA131622D2C600F6A184 /* Project.m */; };
 		2769AA6E1622E76400F6A184 /* Issue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2769AA6D1622E76400F6A184 /* Issue.m */; };
 		278D16DC16233645006AFEBD /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278D16DA16233645006AFEBD /* DetailViewController.m */; };
 		278D16DD16233645006AFEBD /* DetailViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278D16DB16233645006AFEBD /* DetailViewController~ipad.xib */; };
 		278D16F8162337DD006AFEBD /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278D16F7162337DD006AFEBD /* LoginViewController.xib */; };
-		278D16FA16233845006AFEBD /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278D16F916233845006AFEBD /* MainViewController.xib */; };
 		278D16FC162338C4006AFEBD /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278D16FB162338C4006AFEBD /* DetailViewController.xib */; };
-		278D16FE16233905006AFEBD /* LeftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278D16FD16233905006AFEBD /* LeftViewController.xib */; };
 		27B1DD6A1611ED9100E80FFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B1DD691611ED9100E80FFC /* UIKit.framework */; };
 		27B1DD6C1611ED9100E80FFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B1DD6B1611ED9100E80FFC /* Foundation.framework */; };
 		27B1DD6E1611ED9100E80FFC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B1DD6D1611ED9100E80FFC /* CoreGraphics.framework */; };
@@ -45,6 +45,8 @@
 		274A586E16121056007D9C09 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = ../Bugtrack/ViewControllers/MainViewController.h; sourceTree = "<group>"; };
 		274A586F16121056007D9C09 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = ../Bugtrack/ViewControllers/MainViewController.m; sourceTree = "<group>"; };
 		274A587016121056007D9C09 /* MainViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MainViewController~ipad.xib"; path = "../Bugtrack/ViewControllers/MainViewController~ipad.xib"; sourceTree = "<group>"; };
+		274C35E51625E33B00717018 /* LeftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftViewController.xib; path = ViewControllers/LeftViewController.xib; sourceTree = "<group>"; };
+		274C35E71625E39100717018 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainViewController.xib; path = ViewControllers/MainViewController.xib; sourceTree = "<group>"; };
 		2769AA121622D2C600F6A184 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Project.h; path = Model/Project.h; sourceTree = "<group>"; };
 		2769AA131622D2C600F6A184 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Project.m; path = Model/Project.m; sourceTree = "<group>"; };
 		2769AA6C1622E76400F6A184 /* Issue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Issue.h; path = Model/Issue.h; sourceTree = "<group>"; };
@@ -53,9 +55,7 @@
 		278D16DA16233645006AFEBD /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ViewControllers/DetailViewController.m; sourceTree = "<group>"; };
 		278D16DB16233645006AFEBD /* DetailViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "DetailViewController~ipad.xib"; path = "ViewControllers/DetailViewController~ipad.xib"; sourceTree = "<group>"; };
 		278D16F7162337DD006AFEBD /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = ViewControllers/LoginViewController.xib; sourceTree = "<group>"; };
-		278D16F916233845006AFEBD /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainViewController.xib; path = ViewControllers/MainViewController.xib; sourceTree = "<group>"; };
 		278D16FB162338C4006AFEBD /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DetailViewController.xib; path = ViewControllers/DetailViewController.xib; sourceTree = "<group>"; };
-		278D16FD16233905006AFEBD /* LeftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftViewController.xib; sourceTree = "<group>"; };
 		27B1DD651611ED9100E80FFC /* Bugtrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bugtrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B1DD691611ED9100E80FFC /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		27B1DD6B1611ED9100E80FFC /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -102,7 +102,7 @@
 				27FC81D3161B2AE7006E2E83 /* LeftViewController.h */,
 				27FC81D4161B2AE7006E2E83 /* LeftViewController.m */,
 				27FC81D5161B2AE7006E2E83 /* LeftViewController~ipad.xib */,
-				278D16FD16233905006AFEBD /* LeftViewController.xib */,
+				274C35E51625E33B00717018 /* LeftViewController.xib */,
 			);
 			name = SidePanel;
 			sourceTree = "<group>";
@@ -194,7 +194,7 @@
 				274A586E16121056007D9C09 /* MainViewController.h */,
 				274A586F16121056007D9C09 /* MainViewController.m */,
 				274A587016121056007D9C09 /* MainViewController~ipad.xib */,
-				278D16F916233845006AFEBD /* MainViewController.xib */,
+				274C35E71625E39100717018 /* MainViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -284,9 +284,9 @@
 				27FC81D7161B2AE7006E2E83 /* LeftViewController~ipad.xib in Resources */,
 				278D16DD16233645006AFEBD /* DetailViewController~ipad.xib in Resources */,
 				278D16F8162337DD006AFEBD /* LoginViewController.xib in Resources */,
-				278D16FA16233845006AFEBD /* MainViewController.xib in Resources */,
 				278D16FC162338C4006AFEBD /* DetailViewController.xib in Resources */,
-				278D16FE16233905006AFEBD /* LeftViewController.xib in Resources */,
+				274C35E61625E33B00717018 /* LeftViewController.xib in Resources */,
+				274C35E81625E39100717018 /* MainViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
