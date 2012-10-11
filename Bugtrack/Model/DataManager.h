@@ -14,4 +14,5 @@
 
 + (id) sharedManager;
 - (void) getData;
+- (void) dropData;
 @end

@@ -40,6 +40,9 @@
 }
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if (!self.projects) {
+        [[DataManager sharedManager] getData];
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated {

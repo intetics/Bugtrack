@@ -53,6 +53,7 @@
     
 }
 
+//only iOS 5
 - (void) viewDidUnload {
   [super viewDidUnload];
 }
@@ -124,6 +125,9 @@
 
 - (void) successfullLogin {
     AppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    self.userName.text = @"";
+    self.userPassword.text = @"";
+    self.baseURL.text = @"";
     [appDelegate loginFinished];
 }
 

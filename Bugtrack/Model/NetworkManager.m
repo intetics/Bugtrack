@@ -91,6 +91,22 @@
                       }];
 }
 
+- (void) logoutWithCompletitionsBlocksForSuccess:(void(^)(id response))success failure:(void(^)(NSError *error))failure{
+    [self.httpClient deletePath:@"auth/latest/session"
+                     parameters:nil
+                        success:^(AFHTTPRequestOperation *operation, id response){
+                            if (success) {
+                                success(response);
+                            }
+                        }
+                        failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                            NSLog(@"Failed to logout");
+                            if (failure) {
+                                failure(error);
+                            }
+                        }];
+}
+
 #pragma mark - Get data
 
 - (void) getAllIssuesForCurrentUserWithSuccess:(void (^)(id response))success
@@ -230,6 +246,12 @@
     issue.status = [response valueForKeyPath:@"fields.status.value.name"];
     issue.title = [response valueForKeyPath:@"fields.summary.value"];
     return nil;
+}
+
+- (void) reset{
+    self.httpClient = nil;
+    self.baseURL = nil;
+    self.username = nil;
 }
 
 #pragma mark - Class methods

@@ -68,4 +68,12 @@
     }
     self.projects = temp;
 }
+
+- (void) dropData {
+    self.projects = nil;
+    self.allProjects = nil;
+    self.networkManager = nil;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BT_PROJECTS_HERE" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BT_ISSUES_HERE" object:nil];
+}
 @end

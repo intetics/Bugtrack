@@ -22,8 +22,8 @@
 //    self.viewController.leftFixedWidth = self.window.frame.size.width - 100;
     self.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil]];
 //    self.window.rootViewController = self.viewController;
-    LoginViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    self.window.rootViewController = loginViewController;
+    self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    self.window.rootViewController = self.loginViewController;
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -61,4 +61,12 @@
     self.window.rootViewController = self.viewController;
 }
 
+- (void) openProjectWithKey:(NSString*)key{
+    [self.viewController showCenterPanel:YES];
+}
+
+- (void) showLogin {
+    [self.viewController showCenterPanel:YES];
+    self.window.rootViewController = self.loginViewController;
+}
 @end

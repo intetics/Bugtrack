@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @class JASidePanelController;
+@class LoginViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) JASidePanelController *viewController;
+@property (strong, nonatomic) LoginViewController *loginViewController;
 
 - (void) loginFinished;
+- (void) openProjectWithKey:(NSString*)key;
+- (void) showLogin;
 @end
