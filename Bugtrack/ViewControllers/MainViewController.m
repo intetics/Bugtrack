@@ -66,6 +66,7 @@
     return [[self.projects objectAtIndex:section] title];
 }
 
+//TODO: rewrite
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString * reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];

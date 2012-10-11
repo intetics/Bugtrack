@@ -63,7 +63,37 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+#pragma mark - Autorotation
+
+
+- (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration{
+    
+    UIScreen* screen = [UIScreen mainScreen];
+    CGRect screenRect = screen.applicationFrame;
+    
+    if (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+        NSLog(@"Username frame: %@", NSStringFromCGRect(self.userName.frame));
+        NSLog(@"Window frame: %@", NSStringFromCGRect(screenRect));
+    } else {
+        NSLog(@"Username frame: %@", NSStringFromCGRect(self.userName.frame));
+        NSLog(@"Window frame: %@", NSStringFromCGRect(screenRect));
+    }
+}
+
+// iOS 6
+- (NSUInteger) supportedInterfaceOrientations {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        return UIInterfaceOrientationMaskPortrait;
+    }
+    return UIInterfaceOrientationMaskAll;
+}
+
+// iOS 5.0
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        if (interfaceOrientation != UIInterfaceOrientationPortrait)
+            return NO;
+    }
     return YES;
 }
 
