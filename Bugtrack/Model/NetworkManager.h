@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 @class Issue;
+
 @interface NetworkManager : NSObject
+
 + (id)sharedClient;
 + (NSDictionary*) getAccount;
 - (void) setBaseURL:(NSString*)baseURL;

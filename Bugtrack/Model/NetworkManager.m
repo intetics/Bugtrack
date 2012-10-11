@@ -79,6 +79,7 @@
                           NSDictionary *json = [decoder objectWithData:response];
                           NSLog(@"Response: %@", json);
                           [manager.httpClient setAuthorizationHeaderWithUsername:username password:password];
+                          manager.username = username;
                           if (success) {
                               success(json);
                           }
@@ -182,7 +183,7 @@
 
 - (void) getIssuesForUser:(NSString*)user inProjectWithKey:(NSString*)projectKey withSucces:(void(^)(id response))success{
     NSMutableDictionary* options = [NSMutableDictionary dictionary];
-    user = user ? user : [[NetworkManager getAccount] objectForKey:@"username"];
+    user = user ? user : self.username;
     NSString* jql = [NSString stringWithFormat:@"assignee=\"%@\" and project=\"%@\" and status in (\"open\",\"in progress\", \"reopened\")", user, projectKey];
     [options setObject:jql forKey:@"jql"];
     NSString* path = @"api/latest/search";
