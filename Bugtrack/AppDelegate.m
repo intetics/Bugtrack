@@ -19,9 +19,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.viewController = [[JASidePanelController alloc] init];
     self.viewController.leftPanel = [[LeftViewController alloc] initWithNibName:@"LeftViewController" bundle:nil] ;
-//    self.viewController.leftFixedWidth = self.window.frame.size.width - 100;
+    //    self.viewController.leftFixedWidth = self.window.frame.size.width - 100;
     self.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil]];
-//    self.window.rootViewController = self.viewController;
+    //    self.window.rootViewController = self.viewController;
     self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     self.window.rootViewController = self.loginViewController;
     [self.window makeKeyAndVisible];
@@ -36,7 +36,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
@@ -61,7 +61,11 @@
     self.window.rootViewController = self.viewController;
 }
 
-- (void) openProjectWithKey:(NSString*)key{
+- (void) openProject:(Project *)project{
+    UINavigationController* navigationController = (UINavigationController*)self.viewController.centerPanel;
+    MainViewController* mainViewController = [[navigationController viewControllers] objectAtIndex:0];
+    mainViewController.currentProject = project;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BT_ISSUES_HERE" object:nil];
     [self.viewController showCenterPanel:YES];
 }
 

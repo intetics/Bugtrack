@@ -58,14 +58,23 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
+    if (self.currentProject) {
+        return 1;
+    }
     return [self.projects count];
 }
 
 - (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-   return [[[self.projects objectAtIndex:section] issues] count];
+    if (self.currentProject) {
+        return [[self.currentProject issues] count];
+    }
+    return [[[self.projects objectAtIndex:section] issues] count];
 }
 
 - (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (self.currentProject) {
+        return self.currentProject.title;
+    }
     return [[self.projects objectAtIndex:section] title];
 }
 
@@ -77,12 +86,18 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     }
-    
-    Project* project = [self.projects objectAtIndex:indexPath.section];
-    Issue* issue = [project.issues objectAtIndex:indexPath.row];
+    Issue *issue;
+    if (self.currentProject) {
+        issue = [self.currentProject.issues objectAtIndex:indexPath.row];
+    } else {
+        Project* project = [self.projects objectAtIndex:indexPath.section];
+        issue = [project.issues objectAtIndex:indexPath.row];
+        
+    }
     NetworkManager *sharedNetworkManger = [NetworkManager sharedClient];
     __block NSDictionary *issueInfo;
-    cell.textLabel.text = @"Loading                                                                   ";
+    issue.title = @"Loading...                                                ";
+    cell.textLabel.text = issue.title;
     [sharedNetworkManger getDetailedIssueInfo:issue
                                       success:^(id response){
                                           dispatch_async(dispatch_get_main_queue(), ^{

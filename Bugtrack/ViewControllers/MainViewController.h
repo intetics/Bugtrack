@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class Project;
+
 @interface MainViewController : UITableViewController
+@property (weak, nonatomic) Project* currentProject;
 - (void) recieveNotification:(NSNotification*) notification;
 @end

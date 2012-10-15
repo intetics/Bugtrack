@@ -10,6 +10,7 @@
 
 @class JASidePanelController;
 @class LoginViewController;
+@class Project;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -18,6 +19,6 @@
 @property (strong, nonatomic) LoginViewController *loginViewController;
 
 - (void) loginFinished;
-- (void) openProjectWithKey:(NSString*)key;
+- (void) openProject:(Project *)project;
 - (void) showLogin;
 @end

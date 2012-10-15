@@ -86,7 +86,7 @@ enum MenuSection {
         return [self prepareMenuCell:indexPath];
     }
     return [self prepareProjectsCell:indexPath];
-   }
+}
 
 - (UITableViewCell *) prepareMenuCell:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
@@ -101,7 +101,7 @@ enum MenuSection {
         cell.textLabel.text = @"Logout";
     }
     return cell;
-
+    
 }
 
 - (UITableViewCell *) prepareProjectsCell:(NSIndexPath *)indexPath{
@@ -115,7 +115,7 @@ enum MenuSection {
     // Configure the cell...
     
     return cell;
-
+    
 }
 
 #pragma mark - UITableViewDelegate
@@ -142,13 +142,17 @@ enum MenuSection {
         }
                                                  failure:^(NSError *error){
                                                  }];
+    } else if (indexPath.row == CellAllProjects){
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        [appDelegate openProject:nil];
+        
     }
 }
 
 - (void) didSelectProjectsRowAtIndexPath:(NSIndexPath *)indexPath{
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     Project* project = [self.projects objectAtIndex:indexPath.row];
-    [appDelegate openProjectWithKey:project.key];
+    [appDelegate openProject:project];
 }
 
 #pragma mark - Notification handling
