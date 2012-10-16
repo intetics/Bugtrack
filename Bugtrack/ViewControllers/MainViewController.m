@@ -41,6 +41,7 @@
 }
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.title = @"Bugtrack";
     if (!self.projects) {
         [[DataManager sharedManager] getData];
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
