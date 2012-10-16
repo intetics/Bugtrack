@@ -127,8 +127,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    Project* project = [self.projects objectAtIndex:indexPath.section];
-    Issue* issue = [project.issues objectAtIndex:indexPath.row];
+    Issue *issue;
+    if (self.currentProject) {
+        issue = [self.currentProject.issues objectAtIndex:indexPath.row];
+    } else {
+        Project* project = [self.projects objectAtIndex:indexPath.section];
+        issue = [project.issues objectAtIndex:indexPath.row];
+    }
     detailViewController.issue = issue;
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
