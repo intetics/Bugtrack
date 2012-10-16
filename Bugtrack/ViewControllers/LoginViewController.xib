@@ -40,7 +40,7 @@
 					<object class="IBUITextField" id="570363541">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{50, 85}, {220, 30}}</string>
+						<string key="NSFrame">{{50, 57}, {220, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1000730550"/>
@@ -77,7 +77,7 @@
 					<object class="IBUITextField" id="1000730550">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{50, 123}, {220, 30}}</string>
+						<string key="NSFrame">{{50, 95}, {220, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="565475678"/>
@@ -106,7 +106,7 @@
 					<object class="IBUITextField" id="565475678">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{50, 161}, {220, 30}}</string>
+						<string key="NSFrame">{{50, 133}, {220, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="584914985"/>
@@ -134,7 +134,7 @@
 					<object class="IBUIButton" id="584914985">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{50, 220}, {220, 44}}</string>
+						<string key="NSFrame">{{50, 192}, {220, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="83713077"/>
@@ -282,11 +282,11 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
+							<reference ref="83713077"/>
 							<reference ref="570363541"/>
 							<reference ref="1000730550"/>
 							<reference ref="565475678"/>
 							<reference ref="584914985"/>
-							<reference ref="83713077"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
