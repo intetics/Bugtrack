@@ -52,9 +52,10 @@
             project.issues = response;
             if (blockCount < count)
                 blockCount++;
-            else
+            else {
                 [self trimProjects];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"BT_ISSUES_HERE" object:nil];
+            }
         }];
     }
 }
