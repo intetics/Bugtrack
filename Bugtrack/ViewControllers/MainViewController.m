@@ -15,6 +15,7 @@
 #import "Project.h"
 #import "Issue.h"
 #import "DetailViewController.h"
+#import "MBProgressHUD.h"
 
 @interface MainViewController ()
 @property (weak, nonatomic) NSArray *projects;
@@ -42,6 +43,8 @@
     [super viewWillAppear:animated];
     if (!self.projects) {
         [[DataManager sharedManager] getData];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Loading";
     }
 }
 
@@ -128,6 +131,7 @@
 - (void) recieveNotification:(NSNotification*) notification{
     self.projects = [[DataManager sharedManager] projects];
     [self.tableView reloadData];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 @end
