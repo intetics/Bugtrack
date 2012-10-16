@@ -41,7 +41,10 @@
 }
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = @"Bugtrack";
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSDictionary *info = [bundle infoDictionary];
+    NSString *prodName = [info objectForKey:@"CFBundleDisplayName"];
+    self.title = prodName;
     if (!self.projects) {
         [[DataManager sharedManager] getData];
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -99,20 +102,23 @@
         
     }
     NetworkManager *sharedNetworkManger = [NetworkManager sharedClient];
-    __block NSDictionary *issueInfo;
+    cell.detailTextLabel.text = issue.key;
+    if (issue.title) {
+        cell.textLabel.text = issue.title;
+        return cell;
+    }
+    
     issue.title = @"Loading...                                                ";
     cell.textLabel.text = issue.title;
     [sharedNetworkManger getDetailedIssueInfo:issue
                                       success:^(id response){
                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                              issueInfo = response;
                                               cell.textLabel.text = issue.title;
                                           });
                                       }
                                    andFailure:^(NSError* error){
                                    }];
     
-    cell.detailTextLabel.text = issue.key;
     return cell;
 }
 
